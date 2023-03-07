@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.smart_admin.mapper.RepairMapper" >
+  <resultMap id="BaseResultMap" type="com.example.smart_admin.domain.Repair" >
+    <id column="repair_code" property="repairCode" jdbcType="VARCHAR" />
+    <result column="equipment_code" property="equipmentCode" jdbcType="VARCHAR" />
+    <result column="repair_time" property="repairTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="repair_user" property="repairUser" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    repair_code, equipment_code, repair_time, create_time, repair_user, date, finish_time, 
+    state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from repair
+    where repair_code = #{repairCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from repair
+    where repair_code = #{repairCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.smart_admin.domain.Repair" >
+    insert into repair (repair_code, equipment_code, repair_time, 
+      create_time, repair_user, date, 
+      finish_time, state)
+    values (#{repairCode,jdbcType=VARCHAR}, #{equipmentCode,jdbcType=VARCHAR}, #{repairTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{repairUser,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
+      #{finishTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.smart_admin.domain.Repair" >
+    insert into repair
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="repairCode != null" >
+        repair_code,
+      </if>
+      <if test="equipmentCode != null" >
+        equipment_code,
+      </if>
+      <if test="repairTime != null" >
+        repair_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="repairUser != null" >
+        repair_user,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="finishTime != null" >
+        finish_time,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="repairCode != null" >
+        #{repairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentCode != null" >
+        #{equipmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repairTime != null" >
+        #{repairTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repairUser != null" >
+        #{repairUser,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null" >
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.smart_admin.domain.Repair" >
+    update repair
+    <set >
+      <if test="equipmentCode != null" >
+        equipment_code = #{equipmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repairTime != null" >
+        repair_time = #{repairTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repairUser != null" >
+        repair_user = #{repairUser,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null" >
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where repair_code = #{repairCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.smart_admin.domain.Repair" >
+    update repair
+    set equipment_code = #{equipmentCode,jdbcType=VARCHAR},
+      repair_time = #{repairTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      repair_user = #{repairUser,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR}
+    where repair_code = #{repairCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.smart_admin.mapper.MeasureMapper" >
+  <resultMap id="BaseResultMap" type="com.example.smart_admin.domain.Measure" >
+    <id column="measure_code" property="measureCode" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="equipment_code" property="equipmentCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.example.smart_admin.domain.Measure" extends="BaseResultMap" >
+    <result column="data" property="data" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    measure_code, create_time, equipment_code
+  </sql>
+  <sql id="Blob_Column_List" >
+    data
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from measure
+    where measure_code = #{measureCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from measure
+    where measure_code = #{measureCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.smart_admin.domain.Measure" >
+    insert into measure (measure_code, create_time, equipment_code, 
+      data)
+    values (#{measureCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{equipmentCode,jdbcType=VARCHAR}, 
+      #{data,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.smart_admin.domain.Measure" >
+    insert into measure
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="measureCode != null" >
+        measure_code,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="equipmentCode != null" >
+        equipment_code,
+      </if>
+      <if test="data != null" >
+        data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="measureCode != null" >
+        #{measureCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentCode != null" >
+        #{equipmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null" >
+        #{data,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.smart_admin.domain.Measure" >
+    update measure
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentCode != null" >
+        equipment_code = #{equipmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null" >
+        data = #{data,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where measure_code = #{measureCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.smart_admin.domain.Measure" >
+    update measure
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      equipment_code = #{equipmentCode,jdbcType=VARCHAR},
+      data = #{data,jdbcType=LONGVARCHAR}
+    where measure_code = #{measureCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.smart_admin.domain.Measure" >
+    update measure
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      equipment_code = #{equipmentCode,jdbcType=VARCHAR}
+    where measure_code = #{measureCode,jdbcType=VARCHAR}
+  </update>
+</mapper>
