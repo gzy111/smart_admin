@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.smart_admin.mapper.WarnMapper" >
+  <resultMap id="BaseResultMap" type="com.example.smart_admin.domain.Warn" >
+    <id column="warn_code" property="warnCode" jdbcType="VARCHAR" />
+    <result column="equipment_code" property="equipmentCode" jdbcType="VARCHAR" />
+    <result column="warn_type" property="warnType" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.example.smart_admin.domain.Warn" extends="BaseResultMap" >
+    <result column="warn_data" property="warnData" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    warn_code, equipment_code, warn_type, create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    warn_data
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from warn
+    where warn_code = #{warnCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from warn
+    where warn_code = #{warnCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.smart_admin.domain.Warn" >
+    insert into warn (warn_code, equipment_code, warn_type, 
+      create_time, warn_data)
+    values (#{warnCode,jdbcType=VARCHAR}, #{equipmentCode,jdbcType=VARCHAR}, #{warnType,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{warnData,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.smart_admin.domain.Warn" >
+    insert into warn
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="warnCode != null" >
+        warn_code,
+      </if>
+      <if test="equipmentCode != null" >
+        equipment_code,
+      </if>
+      <if test="warnType != null" >
+        warn_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="warnData != null" >
+        warn_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="warnCode != null" >
+        #{warnCode,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentCode != null" >
+        #{equipmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="warnType != null" >
+        #{warnType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="warnData != null" >
+        #{warnData,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.smart_admin.domain.Warn" >
+    update warn
+    <set >
+      <if test="equipmentCode != null" >
+        equipment_code = #{equipmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="warnType != null" >
+        warn_type = #{warnType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="warnData != null" >
+        warn_data = #{warnData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where warn_code = #{warnCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.smart_admin.domain.Warn" >
+    update warn
+    set equipment_code = #{equipmentCode,jdbcType=VARCHAR},
+      warn_type = #{warnType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      warn_data = #{warnData,jdbcType=LONGVARCHAR}
+    where warn_code = #{warnCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.smart_admin.domain.Warn" >
+    update warn
+    set equipment_code = #{equipmentCode,jdbcType=VARCHAR},
+      warn_type = #{warnType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where warn_code = #{warnCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

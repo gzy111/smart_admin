@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.smart_admin.mapper.EquipmentMapper" >
+  <resultMap id="BaseResultMap" type="com.example.smart_admin.domain.Equipment" >
+    <id column="equipment_code" property="equipmentCode" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="equipment_name" property="equipmentName" jdbcType="VARCHAR" />
+    <result column="equipment_type" property="equipmentType" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    equipment_code, id, equipment_name, equipment_type, date, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from equipment
+    where equipment_code = #{equipmentCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from equipment
+    where equipment_code = #{equipmentCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.smart_admin.domain.Equipment" >
+    insert into equipment (equipment_code, id, equipment_name, 
+      equipment_type, date, state
+      )
+    values (#{equipmentCode,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{equipmentName,jdbcType=VARCHAR}, 
+      #{equipmentType,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.smart_admin.domain.Equipment" >
+    insert into equipment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="equipmentCode != null" >
+        equipment_code,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="equipmentName != null" >
+        equipment_name,
+      </if>
+      <if test="equipmentType != null" >
+        equipment_type,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="equipmentCode != null" >
+        #{equipmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentName != null" >
+        #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentType != null" >
+        #{equipmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.smart_admin.domain.Equipment" >
+    update equipment
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentName != null" >
+        equipment_name = #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentType != null" >
+        equipment_type = #{equipmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where equipment_code = #{equipmentCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.smart_admin.domain.Equipment" >
+    update equipment
+    set id = #{id,jdbcType=INTEGER},
+      equipment_name = #{equipmentName,jdbcType=VARCHAR},
+      equipment_type = #{equipmentType,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR}
+    where equipment_code = #{equipmentCode,jdbcType=VARCHAR}
+  </update>
+</mapper>
