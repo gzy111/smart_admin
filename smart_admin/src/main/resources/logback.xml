@@ -7,7 +7,7 @@
     <contextName>${app_name}</contextName>
 
     <!-- 定义日志文件 输入位置 -->
-    <property name="log_dir" value="/Users/guanziyuan/Documents/upload" />
+    <property name="log_dir" value="smart_admin/upload" />
 
     <!-- 日志最大的历史 30天 -->
     <property name="maxHistory" value="30"/>
@@ -51,7 +51,7 @@
     <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 RollingFileAppender-->
     <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 实时日志的文件名 -->
-        <file>/Users/guanziyuan/Documents/upload/waning.log</file>
+        <file>smart_admin/upload/waning.log</file>
         <append>true</append>
 
         <!-- 过滤器，只记录ERROR级别的日志 -->

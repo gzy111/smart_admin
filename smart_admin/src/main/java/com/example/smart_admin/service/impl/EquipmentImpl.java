@@ -6,6 +6,8 @@ import com.example.smart_admin.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EquipmentImpl implements EquipmentService {
     @Autowired
@@ -30,6 +32,11 @@ public class EquipmentImpl implements EquipmentService {
     @Override
     public Equipment selectByPrimaryKey(String equipmentCode) {
         return equipmentMapper.selectByPrimaryKey(equipmentCode);
+    }
+
+    @Override
+    public List<Equipment> selectByPrimaryKey() {
+        return equipmentMapper.selectByPrimaryKey();
     }
 
     @Override

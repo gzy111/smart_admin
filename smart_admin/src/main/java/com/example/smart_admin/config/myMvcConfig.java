@@ -19,7 +19,7 @@ public class myMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 //        WebMvcConfigurer.super.addInterceptors(registry);
         logger.info("注册拦截器");
-        registry.addInterceptor(new loginFilter()).addPathPatterns("/**").excludePathPatterns("/users/*");
+//        registry.addInterceptor(new loginFilter()).addPathPatterns("/**").excludePathPatterns("/users/*");
     }
 
     @Override
@@ -33,11 +33,11 @@ public class myMvcConfig implements WebMvcConfigurer {
          * maxAge：配置预检请求的有效时间
          */
 //        WebMvcConfigurer.super.addCorsMappings(registry);
-        registry.addMapping("/**")
-                .allowedOrigins("http://127.0.0.1:8080","http://127.0.0.1:8088")
-                .allowCredentials(true)
-                .allowedMethods("*")
-                .allowedHeaders("*")
-                .maxAge(36000);
+//        registry.addMapping("/**")
+//                .allowedOrigins("http://127.0.0.1:8080","http://127.0.0.1:8088")
+//                .allowCredentials(true)
+//                .allowedMethods("*")
+//                .allowedHeaders("*")
+//                .maxAge(36000);
     }
 }

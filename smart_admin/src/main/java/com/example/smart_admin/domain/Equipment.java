@@ -1,17 +1,21 @@
 package com.example.smart_admin.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class Equipment implements Serializable {
     private String equipmentCode;
 
-    private Integer id;
+
 
     private String equipmentName;
 
     private String equipmentType;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date date;
 
     private String state;
@@ -26,13 +30,6 @@ public class Equipment implements Serializable {
         this.equipmentCode = equipmentCode == null ? null : equipmentCode.trim();
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getEquipmentName() {
         return equipmentName;
@@ -79,7 +76,6 @@ public class Equipment implements Serializable {
         }
         Equipment other = (Equipment) that;
         return (this.getEquipmentCode() == null ? other.getEquipmentCode() == null : this.getEquipmentCode().equals(other.getEquipmentCode()))
-            && (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getEquipmentName() == null ? other.getEquipmentName() == null : this.getEquipmentName().equals(other.getEquipmentName()))
             && (this.getEquipmentType() == null ? other.getEquipmentType() == null : this.getEquipmentType().equals(other.getEquipmentType()))
             && (this.getDate() == null ? other.getDate() == null : this.getDate().equals(other.getDate()))
@@ -91,7 +87,6 @@ public class Equipment implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getEquipmentCode() == null) ? 0 : getEquipmentCode().hashCode());
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getEquipmentName() == null) ? 0 : getEquipmentName().hashCode());
         result = prime * result + ((getEquipmentType() == null) ? 0 : getEquipmentType().hashCode());
         result = prime * result + ((getDate() == null) ? 0 : getDate().hashCode());
@@ -106,7 +101,6 @@ public class Equipment implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", equipmentCode=").append(equipmentCode);
-        sb.append(", id=").append(id);
         sb.append(", equipmentName=").append(equipmentName);
         sb.append(", equipmentType=").append(equipmentType);
         sb.append(", date=").append(date);
