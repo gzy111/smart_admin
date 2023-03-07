@@ -17,8 +17,8 @@ public class EquipmentController {
     @Autowired
     EquipmentService equipmentService;
 
-    @RequestMapping(value = "/select", method = RequestMethod.GET)
-    public Equipment selectTest(String code){
+    @RequestMapping(value = "/selectCode", method = RequestMethod.GET)
+    public Equipment selectCode(String code){
         Equipment equipment = equipmentService.selectByPrimaryKey(code);
         return equipment;
     }

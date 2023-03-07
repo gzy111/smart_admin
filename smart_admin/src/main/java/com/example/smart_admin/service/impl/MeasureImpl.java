@@ -8,40 +8,41 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MeasureImpl implements MeasureService {
-//    @Autowired
-//    MeasureMapper measureMapper;
+    @Autowired
+    MeasureMapper measureMapper;
+
     @Override
-    public int deleteByPrimaryKey(Integer id) {
-        return 0;
+    public int deleteByPrimaryKey(String measureCode) {
+        return measureMapper.deleteByPrimaryKey(measureCode);
     }
 
     @Override
     public int insert(Measure record) {
-        return 0;
+        return measureMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Measure record) {
-        return 0;
+        return measureMapper.insertSelective(record);
     }
 
     @Override
-    public Measure selectByPrimaryKey(Integer id) {
-        return null;
+    public Measure selectByPrimaryKey(String measureCode) {
+        return measureMapper.selectByPrimaryKey(measureCode);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Measure record) {
-        return 0;
+        return measureMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKeyWithBLOBs(Measure record) {
-        return 0;
+        return measureMapper.updateByPrimaryKeyWithBLOBs(record);
     }
 
     @Override
     public int updateByPrimaryKey(Measure record) {
-        return 0;
+        return measureMapper.updateByPrimaryKey(record);
     }
 }

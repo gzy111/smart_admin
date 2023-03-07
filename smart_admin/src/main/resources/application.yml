@@ -9,8 +9,6 @@ spring:
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis:
-  #??????mapper?xml????
   mapper-locations: classpath:mapper/*.xml
-  #???????
   type-aliases-package: com.example.smart_admin.domain
 

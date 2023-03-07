@@ -14,17 +14,17 @@ public class EquipmentImpl implements EquipmentService {
 
     @Override
     public int deleteByPrimaryKey(String equipmentCode) {
-        return 0;
+        return equipmentMapper.deleteByPrimaryKey(equipmentCode);
     }
 
     @Override
     public int insert(Equipment record) {
-        return 0;
+        return equipmentMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Equipment record) {
-        return 0;
+        return equipmentMapper.insertSelective(record);
     }
 
     @Override
@@ -34,11 +34,11 @@ public class EquipmentImpl implements EquipmentService {
 
     @Override
     public int updateByPrimaryKeySelective(Equipment record) {
-        return 0;
+        return equipmentMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(Equipment record) {
-        return 0;
+        return equipmentMapper.updateByPrimaryKey(record);
     }
 }
