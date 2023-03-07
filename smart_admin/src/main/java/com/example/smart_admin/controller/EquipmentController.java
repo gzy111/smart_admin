@@ -18,8 +18,8 @@ public class EquipmentController {
     EquipmentService equipmentService;
 
     @RequestMapping(value = "/select", method = RequestMethod.GET)
-    public Equipment selectTest(Integer id){
-        Equipment equipment = equipmentService.selectByPrimaryKey(id);
+    public Equipment selectTest(String code){
+        Equipment equipment = equipmentService.selectByPrimaryKey(code);
         return equipment;
     }
 

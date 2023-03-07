@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Repair implements Serializable {
-    private Integer id;
-
     private String repairCode;
 
     private String equipmentCode;
@@ -23,14 +21,6 @@ public class Repair implements Serializable {
     private String state;
 
     private static final long serialVersionUID = 1L;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getRepairCode() {
         return repairCode;
@@ -108,8 +98,7 @@ public class Repair implements Serializable {
             return false;
         }
         Repair other = (Repair) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getRepairCode() == null ? other.getRepairCode() == null : this.getRepairCode().equals(other.getRepairCode()))
+        return (this.getRepairCode() == null ? other.getRepairCode() == null : this.getRepairCode().equals(other.getRepairCode()))
             && (this.getEquipmentCode() == null ? other.getEquipmentCode() == null : this.getEquipmentCode().equals(other.getEquipmentCode()))
             && (this.getRepairTime() == null ? other.getRepairTime() == null : this.getRepairTime().equals(other.getRepairTime()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -123,7 +112,6 @@ public class Repair implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getRepairCode() == null) ? 0 : getRepairCode().hashCode());
         result = prime * result + ((getEquipmentCode() == null) ? 0 : getEquipmentCode().hashCode());
         result = prime * result + ((getRepairTime() == null) ? 0 : getRepairTime().hashCode());
@@ -141,7 +129,6 @@ public class Repair implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
         sb.append(", repairCode=").append(repairCode);
         sb.append(", equipmentCode=").append(equipmentCode);
         sb.append(", repairTime=").append(repairTime);

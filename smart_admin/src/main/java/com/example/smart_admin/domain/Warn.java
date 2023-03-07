@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Warn implements Serializable {
-    private Integer id;
-
     private String warnCode;
 
     private String equipmentCode;
@@ -17,14 +15,6 @@ public class Warn implements Serializable {
     private String warnData;
 
     private static final long serialVersionUID = 1L;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getWarnCode() {
         return warnCode;
@@ -78,8 +68,7 @@ public class Warn implements Serializable {
             return false;
         }
         Warn other = (Warn) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getWarnCode() == null ? other.getWarnCode() == null : this.getWarnCode().equals(other.getWarnCode()))
+        return (this.getWarnCode() == null ? other.getWarnCode() == null : this.getWarnCode().equals(other.getWarnCode()))
             && (this.getEquipmentCode() == null ? other.getEquipmentCode() == null : this.getEquipmentCode().equals(other.getEquipmentCode()))
             && (this.getWarnType() == null ? other.getWarnType() == null : this.getWarnType().equals(other.getWarnType()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -90,7 +79,6 @@ public class Warn implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getWarnCode() == null) ? 0 : getWarnCode().hashCode());
         result = prime * result + ((getEquipmentCode() == null) ? 0 : getEquipmentCode().hashCode());
         result = prime * result + ((getWarnType() == null) ? 0 : getWarnType().hashCode());
@@ -105,7 +93,6 @@ public class Warn implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
         sb.append(", warnCode=").append(warnCode);
         sb.append(", equipmentCode=").append(equipmentCode);
         sb.append(", warnType=").append(warnType);

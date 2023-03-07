@@ -11,33 +11,34 @@ public class EquipmentImpl implements EquipmentService {
     @Autowired
     private EquipmentMapper equipmentMapper;
 
+
     @Override
-    public int deleteByPrimaryKey(Integer id) {
-        return equipmentMapper.deleteByPrimaryKey(id);
+    public int deleteByPrimaryKey(String equipmentCode) {
+        return 0;
     }
 
     @Override
     public int insert(Equipment record) {
-        return equipmentMapper.insert(record);
+        return 0;
     }
 
     @Override
     public int insertSelective(Equipment record) {
-        return equipmentMapper.insertSelective(record);
+        return 0;
     }
 
     @Override
-    public Equipment selectByPrimaryKey(Integer id) {
-        return equipmentMapper.selectByPrimaryKey(id);
+    public Equipment selectByPrimaryKey(String equipmentCode) {
+        return equipmentMapper.selectByPrimaryKey(equipmentCode);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Equipment record) {
-        return equipmentMapper.updateByPrimaryKeySelective(record);
+        return 0;
     }
 
     @Override
     public int updateByPrimaryKey(Equipment record) {
-        return equipmentMapper.updateByPrimaryKey(record);
+        return 0;
     }
 }

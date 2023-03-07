@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Equipment implements Serializable {
-    private Integer id;
+    private String equipmentCode;
 
-    private Integer equipmentCode;
+    private Integer id;
 
     private String equipmentName;
 
@@ -18,20 +18,20 @@ public class Equipment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public String getEquipmentCode() {
+        return equipmentCode;
+    }
+
+    public void setEquipmentCode(String equipmentCode) {
+        this.equipmentCode = equipmentCode == null ? null : equipmentCode.trim();
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getEquipmentCode() {
-        return equipmentCode;
-    }
-
-    public void setEquipmentCode(Integer equipmentCode) {
-        this.equipmentCode = equipmentCode;
     }
 
     public String getEquipmentName() {
@@ -78,8 +78,8 @@ public class Equipment implements Serializable {
             return false;
         }
         Equipment other = (Equipment) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getEquipmentCode() == null ? other.getEquipmentCode() == null : this.getEquipmentCode().equals(other.getEquipmentCode()))
+        return (this.getEquipmentCode() == null ? other.getEquipmentCode() == null : this.getEquipmentCode().equals(other.getEquipmentCode()))
+            && (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getEquipmentName() == null ? other.getEquipmentName() == null : this.getEquipmentName().equals(other.getEquipmentName()))
             && (this.getEquipmentType() == null ? other.getEquipmentType() == null : this.getEquipmentType().equals(other.getEquipmentType()))
             && (this.getDate() == null ? other.getDate() == null : this.getDate().equals(other.getDate()))
@@ -90,8 +90,8 @@ public class Equipment implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getEquipmentCode() == null) ? 0 : getEquipmentCode().hashCode());
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getEquipmentName() == null) ? 0 : getEquipmentName().hashCode());
         result = prime * result + ((getEquipmentType() == null) ? 0 : getEquipmentType().hashCode());
         result = prime * result + ((getDate() == null) ? 0 : getDate().hashCode());
@@ -105,8 +105,8 @@ public class Equipment implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
         sb.append(", equipmentCode=").append(equipmentCode);
+        sb.append(", id=").append(id);
         sb.append(", equipmentName=").append(equipmentName);
         sb.append(", equipmentType=").append(equipmentType);
         sb.append(", date=").append(date);

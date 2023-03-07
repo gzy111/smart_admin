@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Task implements Serializable {
-    private Integer id;
-
     private String taskCode;
 
     private Date taskTime;
@@ -17,14 +15,6 @@ public class Task implements Serializable {
     private String state;
 
     private static final long serialVersionUID = 1L;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getTaskCode() {
         return taskCode;
@@ -78,8 +68,7 @@ public class Task implements Serializable {
             return false;
         }
         Task other = (Task) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getTaskCode() == null ? other.getTaskCode() == null : this.getTaskCode().equals(other.getTaskCode()))
+        return (this.getTaskCode() == null ? other.getTaskCode() == null : this.getTaskCode().equals(other.getTaskCode()))
             && (this.getTaskTime() == null ? other.getTaskTime() == null : this.getTaskTime().equals(other.getTaskTime()))
             && (this.getTaskType() == null ? other.getTaskType() == null : this.getTaskType().equals(other.getTaskType()))
             && (this.getTaskYield() == null ? other.getTaskYield() == null : this.getTaskYield().equals(other.getTaskYield()))
@@ -90,7 +79,6 @@ public class Task implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getTaskCode() == null) ? 0 : getTaskCode().hashCode());
         result = prime * result + ((getTaskTime() == null) ? 0 : getTaskTime().hashCode());
         result = prime * result + ((getTaskType() == null) ? 0 : getTaskType().hashCode());
@@ -105,7 +93,6 @@ public class Task implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
         sb.append(", taskCode=").append(taskCode);
         sb.append(", taskTime=").append(taskTime);
         sb.append(", taskType=").append(taskType);
