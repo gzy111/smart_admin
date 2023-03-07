@@ -1,0 +1,16 @@
+server:
+  port: 80
+  servlet:
+    context-path: /
+spring:
+  datasource:
+    username: root
+    url: jdbc:mysql://43.138.242.246:3306/smart_mine?serverTimezone=Asia/Shanghai
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  #??????mapper?xml????
+  mapper-locations: classpath:mapper/*.xml
+  #???????
+  type-aliases-package: com.example.smart_admin.domain
+
