@@ -1,8 +1,7 @@
 package com.example.smart_admin.service;
 
 import com.example.smart_admin.domain.Equipment;
-
-import java.util.List;
+import com.github.pagehelper.PageInfo;
 
 public interface EquipmentService {
     int deleteByPrimaryKey(String equipmentCode);
@@ -12,7 +11,7 @@ public interface EquipmentService {
     int insertSelective(Equipment record);
 
     Equipment selectByPrimaryKey(String equipmentCode);
-    List<Equipment> selectByPrimaryKey( );
+    PageInfo<Equipment> selectByPrimaryKey(Equipment equipment);
     int updateByPrimaryKeySelective(Equipment record);
 
     int updateByPrimaryKey(Equipment record);

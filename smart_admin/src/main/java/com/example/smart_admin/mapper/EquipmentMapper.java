@@ -19,5 +19,5 @@ public interface EquipmentMapper {
 
     int updateByPrimaryKey(Equipment record);
 
-    List<Equipment> selectByPrimaryKey( );
+    List<Equipment> selectByPrimaryKey(Equipment equipment );
 }

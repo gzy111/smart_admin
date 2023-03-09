@@ -7,16 +7,17 @@
     <result column="equipment_type" property="equipmentType" jdbcType="VARCHAR" />
     <result column="date" property="date" jdbcType="TIMESTAMP" />
     <result column="state" property="state" jdbcType="VARCHAR" />
+
   </resultMap>
   <sql id="Base_Column_List" >
     equipment_code, id, equipment_name, equipment_type, date, state
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.example.smart_admin.domain.Equipment" >
     select 
     <include refid="Base_Column_List" />
     from equipment
     <trim prefix="where" prefixOverrides="and |or">
-      <if test="equipment_code!=null">
+      <if test="equipmentCode!=null">
         and equipment_code = #{equipmentCode,jdbcType=VARCHAR}
       </if>
     </trim>
