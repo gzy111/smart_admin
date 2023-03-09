@@ -1,15 +1,14 @@
 package com.example.smart_admin.domain;
 
+import com.example.smart_admin.base.base;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Equipment implements Serializable {
+public class Equipment extends base implements Serializable  {
     private String equipmentCode;
-
-
 
     private String equipmentName;
 

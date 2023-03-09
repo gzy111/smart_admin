@@ -1,8 +1,11 @@
 package com.example.smart_admin.controller;
 
 import com.example.smart_admin.Utils.JsonModel;
+
 import com.example.smart_admin.domain.Equipment;
 import com.example.smart_admin.service.EquipmentService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,15 +27,25 @@ public class EquipmentController {
         return jsonModel;
     }
 
-    @RequestMapping("/equipmentSelectAll")
-    public JsonModel<List<Equipment>> selectAll(){
-        List<Equipment> equipments = equipmentService.selectByPrimaryKey();
-        JsonModel<List<Equipment>> jsonModelList = new JsonModel<>();
+//    @GetMapping("/equipmentSelectAll")
+//    public JsonModel<Page<Equipment>> selectAll(Equipment equipment){
+//        PageInfo<Equipment> equipments = equipmentService.selectByPrimaryKey(equipment);
+//        JsonModel<Page<Equipment>> jsonModelList = new JsonModel<>();
+//        Page<Equipment> page = (Page<Equipment>) equipments.getList();
+//        System.out.println(equipments);
+//        System.out.println(equipments.getList());
+//        jsonModelList.setData((Page<Equipment>) equipments.getList());
+//        jsonModelList.setCode(200);
+//        return jsonModelList;
+//    }
+    @GetMapping("/equipmentSelectAll")
+    public JsonModel<PageInfo<Equipment>> selectAllpageInfo(Equipment equipment){
+        PageInfo<Equipment> equipments = equipmentService.selectByPrimaryKey(equipment);
+        JsonModel<PageInfo<Equipment>> jsonModelList = new JsonModel<>();
         jsonModelList.setData(equipments);
         jsonModelList.setCode(200);
         return jsonModelList;
     }
-
 
     @RequestMapping("/equipmentDeleteByCode")
     public JsonModel<Integer> deleteByPrimaryKey( String code){
