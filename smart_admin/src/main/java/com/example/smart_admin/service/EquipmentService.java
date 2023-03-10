@@ -16,4 +16,6 @@ public interface EquipmentService {
 
     int updateByPrimaryKey(Equipment record);
 
+    int selectMaxId();
+
 }

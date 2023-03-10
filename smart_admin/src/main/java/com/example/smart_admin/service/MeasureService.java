@@ -1,6 +1,9 @@
 package com.example.smart_admin.service;
 
 import com.example.smart_admin.domain.Measure;
+import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 public interface MeasureService {
     int deleteByPrimaryKey(String measureCode);
@@ -16,4 +19,6 @@ public interface MeasureService {
     int updateByPrimaryKeyWithBLOBs(Measure record);
 
     int updateByPrimaryKey(Measure record);
+
+    PageInfo<Measure> selectByPrimaryKey (Measure measure);
 }

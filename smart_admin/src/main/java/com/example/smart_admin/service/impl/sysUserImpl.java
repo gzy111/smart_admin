@@ -7,6 +7,8 @@ import com.example.smart_admin.service.sysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class sysUserImpl implements sysUserService {
 
@@ -41,5 +43,10 @@ public class sysUserImpl implements sysUserService {
     @Override
     public int updateByPrimaryKey(SysUser record) {
         return sysUserMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<SysUser> selectByPrimaryKey() {
+        return sysUserMapper.selectByPrimaryKey();
     }
 }

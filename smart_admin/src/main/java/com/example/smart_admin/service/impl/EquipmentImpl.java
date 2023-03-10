@@ -52,4 +52,9 @@ public class EquipmentImpl implements EquipmentService {
     public int updateByPrimaryKey(Equipment record) {
         return equipmentMapper.updateByPrimaryKey(record);
     }
+
+    @Override
+    public int selectMaxId() {
+        return equipmentMapper.selectMaxId();
+    }
 }

@@ -1,8 +1,11 @@
 package com.example.smart_admin.domain;
 
+
+import com.example.smart_admin.base.base;
+
 import java.io.Serializable;
 
-public class SysUserKey implements Serializable {
+public class SysUserKey extends base implements Serializable {
     private Long userId;
 
     private Integer id;

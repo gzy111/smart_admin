@@ -3,6 +3,8 @@ package com.example.smart_admin.service;
 import com.example.smart_admin.domain.SysUser;
 import com.example.smart_admin.domain.SysUserKey;
 
+import java.util.List;
+
 public interface sysUserService {
     int deleteByPrimaryKey(SysUserKey key);
 
@@ -16,4 +18,5 @@ public interface sysUserService {
 
     int updateByPrimaryKey(SysUser record);
 
+    List<SysUser>  selectByPrimaryKey();
 }

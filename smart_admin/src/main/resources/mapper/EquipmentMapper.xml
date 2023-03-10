@@ -5,12 +5,13 @@
     <id column="equipment_code" property="equipmentCode" jdbcType="VARCHAR" />
     <result column="equipment_name" property="equipmentName" jdbcType="VARCHAR" />
     <result column="equipment_type" property="equipmentType" jdbcType="VARCHAR" />
+    <result column="equipment_user" property="equipmentUser" jdbcType="VARCHAR" />
     <result column="date" property="date" jdbcType="TIMESTAMP" />
     <result column="state" property="state" jdbcType="VARCHAR" />
 
   </resultMap>
   <sql id="Base_Column_List" >
-    equipment_code, id, equipment_name, equipment_type, date, state
+    equipment_code, id, equipment_name, equipment_type,equipment_user, date, state
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.example.smart_admin.domain.Equipment" >
     select 
@@ -29,10 +30,10 @@
   </delete>
   <insert id="insert" parameterType="com.example.smart_admin.domain.Equipment" >
     insert into equipment (equipment_code, equipment_name,
-      equipment_type, date, state
+      equipment_type, equipment_user,date, state
       )
     values (#{equipmentCode,jdbcType=VARCHAR}, #{equipmentName,jdbcType=VARCHAR},
-      #{equipmentType,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}
+      #{equipmentType,jdbcType=VARCHAR},#{equipmentUser,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.example.smart_admin.domain.Equipment" >
@@ -53,13 +54,13 @@
       <if test="state != null" >
         state,
       </if>
+      <if test="equipmentUser != null" >
+        equipment_user = #{equipmentUser,jdbcType=VARCHAR},
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="equipmentCode != null" >
         #{equipmentCode,jdbcType=VARCHAR},
-      </if>
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
       </if>
       <if test="equipmentName != null" >
         #{equipmentName,jdbcType=VARCHAR},
@@ -90,6 +91,9 @@
       <if test="state != null" >
         state = #{state,jdbcType=VARCHAR},
       </if>
+      <if test="equipmentUser != null" >
+        equipment_user = #{equipmentUser,jdbcType=VARCHAR},
+      </if>
     </set>
     where equipment_code = #{equipmentCode,jdbcType=VARCHAR}
   </update>
@@ -98,8 +102,14 @@
     set
       equipment_name = #{equipmentName,jdbcType=VARCHAR},
       equipment_type = #{equipmentType,jdbcType=VARCHAR},
+      equipment_user = #{equipmentUser,jdbcType=VARCHAR},
       date = #{date,jdbcType=TIMESTAMP},
       state = #{state,jdbcType=VARCHAR}
     where equipment_code = #{equipmentCode,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectMaxId" resultType="integer">
+    select MAX(id) from equipment
+  </select>
+
 </mapper>

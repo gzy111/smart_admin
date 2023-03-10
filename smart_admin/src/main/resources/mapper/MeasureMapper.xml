@@ -21,8 +21,13 @@
     ,
     <include refid="Blob_Column_List" />
     from measure
-    where measure_code = #{measureCode,jdbcType=VARCHAR}
+    <trim prefix="where" prefixOverrides="and |or">
+      <if test="measureCode!=null">
+        and measure_code = #{measureCode,jdbcType=VARCHAR}
+      </if>
+    </trim>
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from measure
     where measure_code = #{measureCode,jdbcType=VARCHAR}

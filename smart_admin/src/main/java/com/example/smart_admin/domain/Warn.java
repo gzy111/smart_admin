@@ -1,9 +1,11 @@
 package com.example.smart_admin.domain;
 
+import com.example.smart_admin.base.base;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class Warn implements Serializable {
+public class Warn extends base implements Serializable {
     private String warnCode;
 
     private String equipmentCode;

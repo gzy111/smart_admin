@@ -22,7 +22,11 @@
     ,
     <include refid="Blob_Column_List" />
     from warn
-    where warn_code = #{warnCode,jdbcType=VARCHAR}
+    <trim prefix="where" prefixOverrides="and |or">
+      <if test="warnCode!=null">
+        and warn_code = #{warnCode,jdbcType=VARCHAR}
+      </if>
+    </trim>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from warn

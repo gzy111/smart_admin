@@ -2,6 +2,8 @@ package com.example.smart_admin.service;
 
 import com.example.smart_admin.domain.SmartLookup;
 
+import java.util.List;
+
 public interface SmartLookupService {
 
     int deleteByPrimaryKey(Integer id);
@@ -15,4 +17,6 @@ public interface SmartLookupService {
     int updateByPrimaryKeySelective(SmartLookup record);
 
     int updateByPrimaryKey(SmartLookup record);
+
+    List<SmartLookup>  selectByPrimaryKey(String typeName);
 }

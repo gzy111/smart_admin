@@ -8,11 +8,31 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Equipment extends base implements Serializable  {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
     private String equipmentCode;
 
     private String equipmentName;
 
     private String equipmentType;
+
+    private String equipmentUser;
+
+    public String getEquipmentUser() {
+        return equipmentUser;
+    }
+
+    public void setEquipmentUser(String equipmentUser) {
+        this.equipmentUser = equipmentUser;
+    }
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date date;
@@ -61,6 +81,8 @@ public class Equipment extends base implements Serializable  {
     public void setState(String state) {
         this.state = state == null ? null : state.trim();
     }
+
+
 
     @Override
     public boolean equals(Object that) {

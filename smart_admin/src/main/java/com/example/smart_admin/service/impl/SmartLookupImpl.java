@@ -5,6 +5,8 @@ import com.example.smart_admin.mapper.SmartLookupMapper;
 import com.example.smart_admin.service.SmartLookupService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SmartLookupImpl implements SmartLookupService {
 
@@ -38,5 +40,10 @@ public class SmartLookupImpl implements SmartLookupService {
     @Override
     public int updateByPrimaryKey(SmartLookup record) {
         return smartLookupMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<SmartLookup> selectByPrimaryKey(String typeName) {
+        return smartLookupMapper.selectByPrimaryKey(typeName);
     }
 }

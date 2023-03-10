@@ -9,7 +9,14 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+/**
+ * 设备管理
+ *
+ * */
+
 
 @RestController
 @RequestMapping("/Equipment")
@@ -27,17 +34,7 @@ public class EquipmentController {
         return jsonModel;
     }
 
-//    @GetMapping("/equipmentSelectAll")
-//    public JsonModel<Page<Equipment>> selectAll(Equipment equipment){
-//        PageInfo<Equipment> equipments = equipmentService.selectByPrimaryKey(equipment);
-//        JsonModel<Page<Equipment>> jsonModelList = new JsonModel<>();
-//        Page<Equipment> page = (Page<Equipment>) equipments.getList();
-//        System.out.println(equipments);
-//        System.out.println(equipments.getList());
-//        jsonModelList.setData((Page<Equipment>) equipments.getList());
-//        jsonModelList.setCode(200);
-//        return jsonModelList;
-//    }
+
     @GetMapping("/equipmentSelectAll")
     public JsonModel<PageInfo<Equipment>> selectAllpageInfo(Equipment equipment){
         PageInfo<Equipment> equipments = equipmentService.selectByPrimaryKey(equipment);
@@ -67,6 +64,18 @@ public class EquipmentController {
     }
     @PostMapping("/equipmentInsertSelective")
     public JsonModel<Integer>  insertSelective( Equipment record){
+        //todo
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = formatter.format(date);
+        record.setDate(new Date());
+        System.out.println(record.toString());
+        //EquipmentCode由code 和id 组成
+        int id = equipmentService.selectMaxId();
+        String code=record.getEquipmentType().split(",")[0];
+        record.setEquipmentCode(code+id);
+        record.setEquipmentType(record.getEquipmentType().split(",")[1]);
+
         int result = equipmentService.insertSelective(record);
         JsonModel<Integer> jsonModel = new JsonModel<>();
         jsonModel.setCode(200);

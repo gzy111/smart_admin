@@ -1,9 +1,11 @@
 package com.example.smart_admin.domain;
 
+import com.example.smart_admin.base.base;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class Task implements Serializable {
+public class Task extends base implements Serializable {
     private String taskCode;
 
     private Date taskTime;

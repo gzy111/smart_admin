@@ -3,7 +3,7 @@ package com.example.smart_admin.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-public class SysUser extends SysUserKey implements Serializable {
+public class SysUser extends SysUserKey  implements Serializable {
     private Long deptId;
 
     private Integer postId;

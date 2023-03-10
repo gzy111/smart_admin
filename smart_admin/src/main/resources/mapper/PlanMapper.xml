@@ -22,7 +22,12 @@
     ,
     <include refid="Blob_Column_List" />
     from plan
-    where plan_code = #{planCode,jdbcType=VARCHAR}
+
+    <trim prefix="where" prefixOverrides="and |or">
+      <if test="planCode!=null">
+        and plan_code = #{planCode,jdbcType=VARCHAR}
+      </if>
+    </trim>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from plan

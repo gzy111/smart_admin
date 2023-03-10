@@ -1,11 +1,17 @@
 package com.example.smart_admin.domain;
 
+import com.example.smart_admin.base.base;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class Measure implements Serializable {
+public class Measure extends base implements Serializable {
     private String measureCode;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date createTime;
 
     private String equipmentCode;
