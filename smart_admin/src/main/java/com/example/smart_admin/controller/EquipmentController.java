@@ -64,6 +64,7 @@ public class EquipmentController {
     }
     @PostMapping("/equipmentInsertSelective")
     public JsonModel<Integer>  insertSelective( Equipment record){
+        System.out.println(record.toString());
         //todo
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -71,7 +72,7 @@ public class EquipmentController {
         record.setDate(new Date());
         System.out.println(record.toString());
         //EquipmentCode由code 和id 组成
-        int id = equipmentService.selectMaxId();
+        int id = equipmentService.selectMaxId()+1;
         String code=record.getEquipmentType().split(",")[0];
         record.setEquipmentCode(code+id);
         record.setEquipmentType(record.getEquipmentType().split(",")[1]);

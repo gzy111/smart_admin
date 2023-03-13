@@ -32,6 +32,7 @@ public class myMvcConfig implements WebMvcConfigurer {
          * allowedHeaders：允许的请求header，可以自定义设置任意请求头信息。
          * maxAge：配置预检请求的有效时间
          */
+
         WebMvcConfigurer.super.addCorsMappings(registry);
         registry.addMapping("/**")
                 .allowedOrigins("http://127.0.0.1:80","http://localhost:5173")

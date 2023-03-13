@@ -127,6 +127,7 @@ public class Equipment extends base implements Serializable  {
         sb.append(", date=").append(date);
         sb.append(", state=").append(state);
         sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append(",equipmentUser=").append(equipmentUser);
         sb.append("]");
         return sb.toString();
     }
