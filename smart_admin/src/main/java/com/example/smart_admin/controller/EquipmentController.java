@@ -35,7 +35,7 @@ public class EquipmentController {
     }
 
 
-    @GetMapping("/equipmentSelectAll")
+    @RequestMapping("/equipmentSelectAll")
     public JsonModel<PageInfo<Equipment>> selectAllpageInfo(Equipment equipment){
         PageInfo<Equipment> equipments = equipmentService.selectByPrimaryKey(equipment);
         JsonModel<PageInfo<Equipment>> jsonModelList = new JsonModel<>();
@@ -63,7 +63,7 @@ public class EquipmentController {
         return jsonModel;
     }
     @PostMapping("/equipmentInsertSelective")
-    public JsonModel<Integer>  insertSelective( Equipment record){
+    public JsonModel<Integer>  insertSelective(@RequestBody Equipment record){
         System.out.println(record.toString());
         //todo
         Date date = new Date();
@@ -73,6 +73,7 @@ public class EquipmentController {
         System.out.println(record.toString());
         //EquipmentCode由code 和id 组成
         int id = equipmentService.selectMaxId()+1;
+
         String code=record.getEquipmentType().split(",")[0];
         record.setEquipmentCode(code+id);
         record.setEquipmentType(record.getEquipmentType().split(",")[1]);
@@ -83,7 +84,10 @@ public class EquipmentController {
         jsonModel.setData(result);
         return jsonModel;
     }
-
+    @RequestMapping("/maxid")
+    public int maxid(){
+        return equipmentService.selectMaxId();
+    }
 
     @PutMapping("/equipmentPpdateBySelective")
     public JsonModel<Integer>  updateByPrimaryKeySelective(Equipment record){
