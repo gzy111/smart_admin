@@ -1,8 +1,8 @@
 package com.example.smart_admin.base;
 
 public class base {
-    private Integer pageNum;
-    private Integer pageSize;
+    private Integer pageNum=1;
+    private Integer pageSize=6;
     private Integer page;
 
     public Integer getPageNum() {
