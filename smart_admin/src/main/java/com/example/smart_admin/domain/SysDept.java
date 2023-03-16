@@ -1,9 +1,12 @@
 package com.example.smart_admin.domain;
 
 import com.example.smart_admin.base.base;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class SysDept extends base implements Serializable {
     private Long deptId;
