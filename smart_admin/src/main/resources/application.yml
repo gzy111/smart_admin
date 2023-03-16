@@ -4,9 +4,9 @@ server:
     context-path: /
 spring:
   datasource:
-    username: root
+    username: smart_mine
     url: jdbc:mysql://43.138.242.246:3306/smart_mine?serverTimezone=Asia/Shanghai
-    password: 123456
+    password: nGEwSpjEPL7Ajnzi
     driver-class-name: com.mysql.cj.jdbc.Driver
   mvc:
     date-format: yyyy-MM-dd HH:mm:ss

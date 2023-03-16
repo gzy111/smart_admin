@@ -10,6 +10,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SysPostImpl implements SysPostService {
 
@@ -38,6 +40,11 @@ public class SysPostImpl implements SysPostService {
         PageInfo<SysPost> pageInfo = list.toPageInfo();
 
         return pageInfo;
+    }
+
+    @Override
+    public List<SysPost> selectByPrimaryKey() {
+        return sysPostMapper.selectByPrimaryKey();
     }
 
     @Override

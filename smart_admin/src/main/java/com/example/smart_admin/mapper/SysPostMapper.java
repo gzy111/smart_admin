@@ -14,7 +14,7 @@ public interface SysPostMapper {
     int insertSelective(SysPost record);
 
     List<SysPost> selectByPrimaryKey(SysPost record);
-
+    List<SysPost> selectByPrimaryKey();
     int updateByPrimaryKeySelective(SysPost record);
 
     int updateByPrimaryKey(SysPost record);

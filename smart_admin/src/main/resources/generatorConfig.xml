@@ -16,8 +16,8 @@
         </commentGenerator>
         <!--数据库链接 参数 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://43.138.242.246:3306/smart_mine" userId="root"
-                        password="123456">
+                        connectionURL="jdbc:mysql://43.138.242.246:3306/smart_mine" userId="smart_mine"
+                        password="nGEwSpjEPL7Ajnzi">
         </jdbcConnection>
         <javaTypeResolver>
             <!-- This property is used to specify whether MyBatis Generator should

@@ -1,9 +1,13 @@
 package com.example.smart_admin.service.impl;
 
+import com.example.smart_admin.domain.SysDept;
 import com.example.smart_admin.domain.SysUser;
 import com.example.smart_admin.domain.SysUserKey;
 import com.example.smart_admin.mapper.SysUserMapper;
 import com.example.smart_admin.service.sysUserService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,4 +53,14 @@ public class sysUserImpl implements sysUserService {
     public List<SysUser> selectByPrimaryKey() {
         return sysUserMapper.selectByPrimaryKey();
     }
+
+    @Override
+    public PageInfo<SysUser> selectByPrimaryKey(SysUser record) {
+        PageHelper.startPage(record.getPageNum(), record.getPageSize());
+        Page<SysUser> list = (Page<SysUser>) sysUserMapper.selectByPrimaryKey(record);
+        PageInfo<SysUser> pageInfo = list.toPageInfo();
+        return pageInfo;
+    }
+
+
 }

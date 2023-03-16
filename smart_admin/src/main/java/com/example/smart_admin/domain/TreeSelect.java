@@ -25,20 +25,6 @@ public class TreeSelect implements Serializable
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<TreeSelect> children;
 
-    public TreeSelect()
-    {
-
-    }
-
-    public TreeSelect(SysDept dept)
-    {
-        this.id = dept.getDeptId();
-        this.label = dept.getDeptName();
-        this.children = dept.getChildren().stream().map(TreeSelect::new).collect(Collectors.toList());
-    }
-
-
-
     public Long getId()
     {
         return id;

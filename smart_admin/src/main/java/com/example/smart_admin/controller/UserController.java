@@ -4,6 +4,7 @@ package com.example.smart_admin.controller;
 import com.example.smart_admin.Utils.JsonModel;
 import com.example.smart_admin.domain.SysUser;
 import com.example.smart_admin.service.sysUserService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,12 @@ public class UserController {
         jsonModel.setData(list);
         jsonModel.setCode(200);
         return jsonModel;
+    }
+
+
+    @RequestMapping("/selectPage")
+    public PageInfo<SysUser> select(SysUser sysUser){
+        return sysUserService.selectByPrimaryKey(sysUser);
     }
 
 

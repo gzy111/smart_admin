@@ -37,6 +37,12 @@
       <if test="id!=null">
         and id = #{id,jdbcType=INTEGER}
       </if>
+      <if test="deptId!=null">
+        and dept_id = #{deptId,jdbcType=BIGINT}
+      </if>
+      <if test="postId!=null">
+        and post_id = #{postId,jdbcType=INTEGER}
+      </if>
     </trim>
   </select>
 

@@ -1,6 +1,5 @@
 package com.example.smart_admin.service.impl;
 
-import com.example.smart_admin.domain.Equipment;
 import com.example.smart_admin.domain.SysDept;
 import com.example.smart_admin.mapper.SysDeptMapper;
 import com.example.smart_admin.service.SysDeptService;
@@ -9,6 +8,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SysDeptImpl implements SysDeptService {
@@ -35,8 +36,12 @@ public class SysDeptImpl implements SysDeptService {
         PageHelper.startPage(record.getPageNum(), record.getPageSize());
         Page<SysDept> list = (Page<SysDept>) sysDeptMapper.selectByPrimaryKey(record);
         PageInfo<SysDept> pageInfo = list.toPageInfo();
-
         return pageInfo;
+    }
+
+    @Override
+    public List<SysDept> selectByPrimaryKey() {
+        return sysDeptMapper.selectByPrimaryKey();
     }
 
     @Override
