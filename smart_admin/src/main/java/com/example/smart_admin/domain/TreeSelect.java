@@ -16,7 +16,7 @@ public class TreeSelect implements Serializable
     private static final long serialVersionUID = 1L;
 
     /** 节点ID */
-    private Long id;
+    private String id;
 
     /** 节点名称 */
     private String label;
@@ -25,12 +25,12 @@ public class TreeSelect implements Serializable
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<TreeSelect> children;
 
-    public Long getId()
+    public String getId()
     {
         return id;
     }
 
-    public void setId(Long id)
+    public void setId(String id)
     {
         this.id = id;
     }

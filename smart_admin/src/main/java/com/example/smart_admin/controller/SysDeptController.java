@@ -28,7 +28,7 @@ public class SysDeptController {
 
     @RequestMapping("/SelectAll")
     public PageInfo<SysDept> selectByPrimaryKey(SysDept record) {
-        return (PageInfo<SysDept>) sysDeptService.selectByPrimaryKey(record);
+        return  sysDeptService.selectByPrimaryKey(record);
     }
 
 
@@ -45,13 +45,13 @@ public class SysDeptController {
 //            System.out.println(postList.getList().toArray().toString());
             for (SysPost post1 :postList.getList()){
                 TreeSelect tree = new TreeSelect();
-                tree.setId(post1.getPostId());
+                tree.setId(post1.getPostCode());
                 tree.setLabel(post1.getPostName());
                 list.add(tree);
                 System.out.println(post1);
             }
             System.out.println(dept.getDeptName()+"----------------------");
-            treeSelect.setId(dept.getDeptId());
+            treeSelect.setId(String.valueOf(dept.getDeptId()));
             treeSelect.setLabel(dept.getDeptName());
             treeSelect.setChildren(list);
             lists.add(treeSelect);

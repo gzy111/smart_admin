@@ -38,6 +38,25 @@ public class SysUser extends SysUserKey  implements Serializable {
 
     private String remark;
 
+    private SysDept dept;
+    private SysPost post;
+
+    public SysDept getDept() {
+        return dept;
+    }
+
+    public void setDept(SysDept dept) {
+        this.dept = dept;
+    }
+
+    public SysPost getPost() {
+        return post;
+    }
+
+    public void setPost(SysPost post) {
+        this.post = post;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Long getDeptId() {

@@ -3,9 +3,12 @@ package com.example.smart_admin.controller;
 
 import com.example.smart_admin.Utils.JsonModel;
 import com.example.smart_admin.domain.SysUser;
+import com.example.smart_admin.domain.SysUserKey;
 import com.example.smart_admin.service.sysUserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,5 +37,36 @@ public class UserController {
         return sysUserService.selectByPrimaryKey(sysUser);
     }
 
+    @RequestMapping("/DeleteUser")
+    public JsonModel<Integer> deleteUser(SysUserKey key){
+        int result=sysUserService.deleteByPrimaryKey(key);
+        JsonModel<Integer> jsonModel =new JsonModel<>();
+        jsonModel.setCode(200);
+        jsonModel.setMsg("删除成功");
+        jsonModel.setData(result);
+        return jsonModel;
+    }
+
+
+    @PutMapping("/UpdateUser")
+    public JsonModel<Integer> updateUser(SysUser user){
+        int result=sysUserService.updateByPrimaryKeySelective(user);
+        JsonModel<Integer> jsonModel =new JsonModel<>();
+        jsonModel.setCode(200);
+        jsonModel.setMsg("更新成功");
+        jsonModel.setData(result);
+        return jsonModel;
+    }
+
+
+    @PostMapping("/InsertUser")
+    public JsonModel<Integer> insertSelective(SysUser record){
+        int result=sysUserService.insertSelective(record);
+        JsonModel<Integer> jsonModel =new JsonModel<>();
+        jsonModel.setCode(200);
+        jsonModel.setMsg("添加成功");
+        jsonModel.setData(result);
+        return jsonModel;
+    }
 
 }
