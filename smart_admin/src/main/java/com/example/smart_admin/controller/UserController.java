@@ -50,7 +50,11 @@ public class UserController {
 
     @PutMapping("/UpdateUser")
     public JsonModel<Integer> updateUser(SysUser user){
+        System.out.println(user.toString());
+
+        System.out.println(user.getUserId());
         int result=sysUserService.updateByPrimaryKeySelective(user);
+        System.out.println(result);
         JsonModel<Integer> jsonModel =new JsonModel<>();
         jsonModel.setCode(200);
         jsonModel.setMsg("更新成功");

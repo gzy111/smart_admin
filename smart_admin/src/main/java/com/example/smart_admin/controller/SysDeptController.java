@@ -26,10 +26,16 @@ public class SysDeptController {
     @Autowired
     SysPostService sysPostService;
 
-    @RequestMapping("/SelectAll")
+    @RequestMapping("/SelectPage")
     public PageInfo<SysDept> selectByPrimaryKey(SysDept record) {
         return  sysDeptService.selectByPrimaryKey(record);
     }
+
+    @RequestMapping("/SelectAll")
+    public List<SysDept> selectByPrimaryKey() {
+        return  sysDeptService.selectByPrimaryKey();
+    }
+
 
 
     @RequestMapping("/TreeSelect")

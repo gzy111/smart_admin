@@ -104,7 +104,6 @@
   <delete id="deleteByPrimaryKey" parameterType="com.example.smart_admin.domain.SysUserKey" >
     delete from sys_user
     where user_id = #{userId,jdbcType=BIGINT}
-      and id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.example.smart_admin.domain.SysUser" >
     insert into sys_user (user_id, id, dept_id, 
@@ -299,7 +298,6 @@
       </if>
     </set>
     where user_id = #{userId,jdbcType=BIGINT}
-      and id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.smart_admin.domain.SysUser" >
     update sys_user

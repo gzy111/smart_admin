@@ -261,6 +261,7 @@ public class SysUser extends SysUserKey  implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", deptId=").append(deptId);
+        sb.append(",userId").append(getUserId());
         sb.append(", postId=").append(postId);
         sb.append(", idCard=").append(idCard);
         sb.append(", userName=").append(userName);
