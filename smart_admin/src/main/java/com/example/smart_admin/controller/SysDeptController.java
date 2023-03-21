@@ -1,5 +1,7 @@
 package com.example.smart_admin.controller;
 
+import com.example.smart_admin.Utils.JsonModel;
+import com.example.smart_admin.domain.Equipment;
 import com.example.smart_admin.domain.SysDept;
 import com.example.smart_admin.domain.SysPost;
 import com.example.smart_admin.domain.TreeSelect;
@@ -9,11 +11,11 @@ import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -37,7 +39,7 @@ public class SysDeptController {
     }
 
 
-
+    //树形结构
     @RequestMapping("/TreeSelect")
     public List treeSelects(){
         List lists =new ArrayList<>();
@@ -64,6 +66,38 @@ public class SysDeptController {
         }
 
         return lists;
+    }
+
+
+    @PutMapping("/UpdateBySelective")
+    public JsonModel<Integer>  updateByPrimaryKeySelective( SysDept record){
+        record.setUpdateTime(new Date());
+        int result=sysDeptService.updateByPrimaryKeySelective(record);
+        JsonModel<Integer> jsonModel = new JsonModel<>();
+        jsonModel.setCode(200);
+        jsonModel.setData(result);
+        return jsonModel;
+    }
+
+
+    @PostMapping("/InsertSelective")
+    public JsonModel<Integer>  insertSelective( SysDept record){
+        record.setCreateTime(new Date());
+        int result = sysDeptService.insertSelective(record);
+        JsonModel<Integer> jsonModel = new JsonModel<>();
+        jsonModel.setCode(200);
+        jsonModel.setData(result);
+        return jsonModel;
+    }
+
+
+    @RequestMapping("/DeleteByCode")
+    public JsonModel<Integer> deleteByPrimaryKey( long code){
+        int result = sysDeptService.deleteByPrimaryKey(code);
+        JsonModel<Integer> jsonModel = new JsonModel<>();
+        jsonModel.setCode(200);
+        jsonModel.setData(result);
+        return jsonModel;
     }
 
 }
