@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     username: smart_mine
-    url: jdbc:mysql://43.138.242.246:3306/smart_mine?serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://43.138.242.246:3306/smart_mine?useSSL=false&useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimeZone=Asia/Shanghai
     password: nGEwSpjEPL7Ajnzi
     driver-class-name: com.mysql.cj.jdbc.Driver
   mvc:

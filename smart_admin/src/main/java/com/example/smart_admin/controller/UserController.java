@@ -7,12 +7,10 @@ import com.example.smart_admin.domain.SysUserKey;
 import com.example.smart_admin.service.sysUserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -64,7 +62,9 @@ public class UserController {
 
 
     @PostMapping("/InsertUser")
-    public JsonModel<Integer> insertSelective(SysUser record){
+    public JsonModel<Integer> insertSelective(@RequestBody  SysUser record){
+        record.setCreateTime(new Date());
+        System.out.println(record.toString());
         int result=sysUserService.insertSelective(record);
         JsonModel<Integer> jsonModel =new JsonModel<>();
         jsonModel.setCode(200);
