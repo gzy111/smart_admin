@@ -49,11 +49,16 @@ public class SysPostImpl implements SysPostService {
 
     @Override
     public int updateByPrimaryKeySelective(SysPost record) {
-        return 0;
+        return sysPostMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(SysPost record) {
-        return 0;
+        return sysPostMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public int selectMaxId() {
+        return sysPostMapper.selectMaxId();
     }
 }

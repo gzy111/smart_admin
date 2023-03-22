@@ -12,21 +12,47 @@
     <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <association property="dept" column="dept_id" javaType="SysDept" resultMap="DeptResultMap"/>
   </resultMap>
+
+  <resultMap id="DeptResultMap" type="com.example.smart_admin.domain.SysDept" >
+    <id column="dept_id" property="deptId" jdbcType="BIGINT" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="leader" property="leader" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
   <sql id="Base_Column_List" >
     post_id, dept_id, post_code, post_name, status, create_by, create_time, update_by, 
     update_time, remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from sys_post
+    select
+    sp.post_id,
+    sp.dept_id,
+    sp.post_code,
+    sp.post_name,
+    sp.status,
+    sp.create_by,
+    sp.create_time,
+    sp.update_by,
+    sp.update_time,
+    sd.dept_name ,
+    sp.remark
+    from
+    sys_post sp
+    left join sys_dept sd on sd.dept_id =sp.dept_id
     <trim prefix="where" prefixOverrides="and |or">
       <if test="postId!=null">
-        and post_id = #{postId,jdbcType=BIGINT}
+        and sp.post_id = #{postId,jdbcType=BIGINT}
       </if>
       <if test="deptId!=null">
-        and dept_id = #{deptId,jdbcType=BIGINT}
+        and sp.dept_id = #{deptId,jdbcType=BIGINT}
       </if>
     </trim>
   </select>
@@ -157,4 +183,9 @@
       remark = #{remark,jdbcType=VARCHAR}
     where post_id = #{postId,jdbcType=BIGINT}
   </update>
+
+  <select id="selectMaxId" resultType="integer">
+    select MAX(post_id) from sys_post
+  </select>
+
 </mapper>

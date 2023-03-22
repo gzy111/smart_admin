@@ -26,6 +26,17 @@ public class SysPost extends base implements Serializable {
 
     private String remark;
 
+
+
+    private SysDept dept;
+
+    public SysDept getDept() {
+        return dept;
+    }
+
+    public void setDept(SysDept dept) {
+        this.dept = dept;
+    }
     private static final long serialVersionUID = 1L;
 
     public Long getPostId() {

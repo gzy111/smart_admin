@@ -72,6 +72,7 @@ public class SysDeptController {
     @PutMapping("/UpdateBySelective")
     public JsonModel<Integer>  updateByPrimaryKeySelective( SysDept record){
         record.setUpdateTime(new Date());
+        System.out.println(record.toString());
         int result=sysDeptService.updateByPrimaryKeySelective(record);
         JsonModel<Integer> jsonModel = new JsonModel<>();
         jsonModel.setCode(200);
@@ -81,7 +82,7 @@ public class SysDeptController {
 
 
     @PostMapping("/InsertSelective")
-    public JsonModel<Integer>  insertSelective( SysDept record){
+    public JsonModel<Integer>  insertSelective( @RequestBody SysDept record){
         record.setCreateTime(new Date());
         int result = sysDeptService.insertSelective(record);
         JsonModel<Integer> jsonModel = new JsonModel<>();
@@ -92,8 +93,9 @@ public class SysDeptController {
 
 
     @RequestMapping("/DeleteByCode")
-    public JsonModel<Integer> deleteByPrimaryKey( long code){
-        int result = sysDeptService.deleteByPrimaryKey(code);
+    public JsonModel<Integer> deleteByPrimaryKey( long deptId){
+        System.out.println(deptId);
+        int result = sysDeptService.deleteByPrimaryKey(Long.valueOf(deptId));
         JsonModel<Integer> jsonModel = new JsonModel<>();
         jsonModel.setCode(200);
         jsonModel.setData(result);

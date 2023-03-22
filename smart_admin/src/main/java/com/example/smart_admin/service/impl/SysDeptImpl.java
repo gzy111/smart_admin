@@ -46,7 +46,7 @@ public class SysDeptImpl implements SysDeptService {
 
     @Override
     public int updateByPrimaryKeySelective(SysDept record) {
-        return 0;
+        return sysDeptMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override

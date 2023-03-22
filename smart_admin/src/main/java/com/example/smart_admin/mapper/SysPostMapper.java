@@ -18,4 +18,6 @@ public interface SysPostMapper {
     int updateByPrimaryKeySelective(SysPost record);
 
     int updateByPrimaryKey(SysPost record);
+
+    int selectMaxId();
 }

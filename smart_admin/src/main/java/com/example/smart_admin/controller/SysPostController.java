@@ -3,15 +3,11 @@ package com.example.smart_admin.controller;
 
 
 import com.example.smart_admin.Utils.JsonModel;
-import com.example.smart_admin.domain.SysDept;
 import com.example.smart_admin.domain.SysPost;
 import com.example.smart_admin.service.SysPostService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -36,6 +32,8 @@ public class SysPostController {
     @PutMapping("/UpdateBySelective")
     public JsonModel<Integer> updateByPrimaryKeySelective(SysPost record){
         record.setUpdateTime(new Date());
+        long deptId = record.getDeptId();
+        record.setPostCode("P"+deptId+record.getPostId());
         int result=sysPostService.updateByPrimaryKeySelective(record);
         JsonModel<Integer> jsonModel = new JsonModel<>();
         jsonModel.setCode(200);
@@ -45,8 +43,11 @@ public class SysPostController {
 
 
     @PostMapping("/InsertSelective")
-    public JsonModel<Integer>  insertSelective( SysPost record){
+    public JsonModel<Integer>  insertSelective(@RequestBody  SysPost record){
         record.setCreateTime(new Date());
+        int id=sysPostService.selectMaxId()+1;
+        long deptId = record.getDeptId();
+        record.setPostCode("P"+deptId+id);
         int result = sysPostService.insertSelective(record);
         JsonModel<Integer> jsonModel = new JsonModel<>();
         jsonModel.setCode(200);
