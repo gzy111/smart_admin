@@ -54,7 +54,7 @@
 <!--               selectByExampleQueryId="false">-->
 <!--        </table>-->
 
-        <table tableName="sys_post" domainObjectName="SysPost"
+        <table tableName="repair" domainObjectName="Repair"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

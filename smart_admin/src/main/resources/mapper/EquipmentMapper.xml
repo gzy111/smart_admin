@@ -8,8 +8,8 @@
     <result column="equipment_user" property="equipmentUser" jdbcType="VARCHAR" />
     <result column="date" property="date" jdbcType="TIMESTAMP" />
     <result column="state" property="state" jdbcType="VARCHAR" />
-
   </resultMap>
+
   <sql id="Base_Column_List" >
     equipment_code, id, equipment_name, equipment_type,equipment_user, date, state
   </sql>
