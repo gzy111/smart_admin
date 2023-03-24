@@ -23,7 +23,7 @@ public class SysPostController {
         return sysPostService.selectByPrimaryKey(record);
     }
     @RequestMapping("/SelectAll")
-    public List<SysPost> selectByPrimaryKey(){
+    public List<SysPost> selectByPrimaryKey( ){
         return sysPostService.selectByPrimaryKey();
     }
 

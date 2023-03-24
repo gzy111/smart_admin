@@ -7,5 +7,10 @@ public class test {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHMMss");
         String str =simpleDateFormat.format(date);
         System.out.println("p"+str);
+
+        String state="2";
+        if (state=="2"){
+            System.out.println(true);
+        }
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +49,18 @@ public class RepairController {
     }
     @RequestMapping("/updateByPrimaryKeySelective")
     public int updateByPrimaryKeySelective(Repair record) {
+//        System.out.println(record.getState());
+        String state=record.getState();
+
+        System.out.println(state+"==============================");
+        if (state.equals("0")){
+            record.setFinishTime(new Date());
+        }else if (state.equals("2")){
+            record.setRepairTime(new Date());
+        }else {
+            System.out.println(state);
+            System.out.println("其他");
+        }
         return repairService.updateByPrimaryKeySelective(record);
     }
     @RequestMapping("/updateByPrimaryKeyWithBLOBs")
@@ -61,6 +74,7 @@ public class RepairController {
 
     @RequestMapping("/selectPage")
     public PageInfo<Repair> selectByPrimaryKey(Repair record){
+        System.out.println(record);
         PageInfo<Repair> pageInfo =repairService.selectByPrimaryKey(record);
         return pageInfo;
     }

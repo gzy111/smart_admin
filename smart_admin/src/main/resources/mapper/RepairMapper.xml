@@ -7,24 +7,61 @@
     <result column="repair_time" property="repairTime" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="repair_user" property="repairUser" jdbcType="VARCHAR" />
-    <result column="date" property="date" jdbcType="TIMESTAMP" />
     <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
     <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="error_info" property="errorInfo" jdbcType="VARCHAR" />
+    <association property="equipment" column="equipment_code" javaType="Equipment" resultMap="EquipmentResultMap"/>
+  </resultMap>
+
+
+  <resultMap id="EquipmentResultMap" type="com.example.smart_admin.domain.Equipment" >
+    <id column="equipment_code" property="equipmentCode" jdbcType="VARCHAR" />
+    <result column="equipment_name" property="equipmentName" jdbcType="VARCHAR" />
+    <result column="equipment_type" property="equipmentType" jdbcType="VARCHAR" />
+    <result column="equipment_user" property="equipmentUser" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="ResultMapWithBLOBs" type="com.example.smart_admin.domain.Repair" extends="BaseResultMap" >
+    <result column="data" property="data" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    repair_code, equipment_code, repair_time, create_time, repair_user, date, finish_time, 
-    state
+    repair_code, equipment_code, repair_time, create_time, repair_user, finish_time, 
+    state, error_info
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from repair
+  <sql id="Blob_Column_List" >
+    data
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    r.repair_code,
+    r.equipment_code,
+    r.repair_time,
+    r.create_time,
+    r.repair_user,
+    r.data,
+    r.finish_time,
+    r.state,
+    r.error_info,
+    e.equipment_name ,
+    e.equipment_type ,
+    e.equipment_user
+    from
+    repair r
+    left join equipment e on r.equipment_code =e.equipment_code
     <trim prefix="where" prefixOverrides="and |or">
       <if test="repairCode!=null">
-        and repair_code = #{repairCode,jdbcType=VARCHAR}
+        and r.repair_code like  concat( '%',#{repairCode},'%')
       </if>
-    </trim>
+      <if test="repairUser!=null">
+        and r.repair_user like concat('%',#{repairUser,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="state!=null">
+        and r.state = #{state,jdbcType=VARCHAR}
+      </if>
 
+    </trim>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from repair
@@ -32,11 +69,13 @@
   </delete>
   <insert id="insert" parameterType="com.example.smart_admin.domain.Repair" >
     insert into repair (repair_code, equipment_code, repair_time, 
-      create_time, repair_user, date, 
-      finish_time, state)
+      create_time, repair_user, finish_time, 
+      state, error_info, data
+      )
     values (#{repairCode,jdbcType=VARCHAR}, #{equipmentCode,jdbcType=VARCHAR}, #{repairTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{repairUser,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
-      #{finishTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR})
+      #{createTime,jdbcType=TIMESTAMP}, #{repairUser,jdbcType=VARCHAR}, #{finishTime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=VARCHAR}, #{errorInfo,jdbcType=VARCHAR}, #{data,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.example.smart_admin.domain.Repair" >
     insert into repair
@@ -56,14 +95,17 @@
       <if test="repairUser != null" >
         repair_user,
       </if>
-      <if test="date != null" >
-        date,
-      </if>
       <if test="finishTime != null" >
         finish_time,
       </if>
       <if test="state != null" >
         state,
+      </if>
+      <if test="errorInfo != null" >
+        error_info,
+      </if>
+      <if test="data != null" >
+        data,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -82,14 +124,17 @@
       <if test="repairUser != null" >
         #{repairUser,jdbcType=VARCHAR},
       </if>
-      <if test="date != null" >
-        #{date,jdbcType=TIMESTAMP},
-      </if>
       <if test="finishTime != null" >
         #{finishTime,jdbcType=TIMESTAMP},
       </if>
       <if test="state != null" >
         #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="errorInfo != null" >
+        #{errorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null" >
+        #{data,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -108,16 +153,31 @@
       <if test="repairUser != null" >
         repair_user = #{repairUser,jdbcType=VARCHAR},
       </if>
-      <if test="date != null" >
-        date = #{date,jdbcType=TIMESTAMP},
-      </if>
       <if test="finishTime != null" >
         finish_time = #{finishTime,jdbcType=TIMESTAMP},
       </if>
       <if test="state != null" >
         state = #{state,jdbcType=VARCHAR},
       </if>
+      <if test="errorInfo != null" >
+        error_info = #{errorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null" >
+        data = #{data,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where repair_code = #{repairCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.smart_admin.domain.Repair" >
+    update repair
+    set equipment_code = #{equipmentCode,jdbcType=VARCHAR},
+      repair_time = #{repairTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      repair_user = #{repairUser,jdbcType=VARCHAR},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR},
+      error_info = #{errorInfo,jdbcType=VARCHAR},
+      data = #{data,jdbcType=LONGVARCHAR}
     where repair_code = #{repairCode,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.smart_admin.domain.Repair" >
@@ -126,9 +186,9 @@
       repair_time = #{repairTime,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       repair_user = #{repairUser,jdbcType=VARCHAR},
-      date = #{date,jdbcType=TIMESTAMP},
       finish_time = #{finishTime,jdbcType=TIMESTAMP},
-      state = #{state,jdbcType=VARCHAR}
+      state = #{state,jdbcType=VARCHAR},
+      error_info = #{errorInfo,jdbcType=VARCHAR}
     where repair_code = #{repairCode,jdbcType=VARCHAR}
   </update>
 </mapper>
