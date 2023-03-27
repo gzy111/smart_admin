@@ -1,6 +1,7 @@
 package com.example.smart_admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
@@ -11,8 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,10 +25,10 @@ import java.util.Date;
 @RequestMapping("/File")
 public class FileUploadController {
 
-    @PostMapping("/upload")
+    @PostMapping("/UploadImage")
     @ResponseBody
     //将上传的文件放在tomcat目录下面的file文件夹中
-    public String upload(MultipartFile multipartFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String upload(@RequestParam("file")MultipartFile multipartFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
         //获取到原文件全名
         String originalFilename = multipartFile.getOriginalFilename();
         // request.getServletContext()。getRealPath("")这里不能使用这个，这个是获取servlet的对象，并获取到的一个临时文件的路径，所以这里不能使用这个
@@ -53,5 +53,27 @@ public class FileUploadController {
 
     }
 
+    @GetMapping("/download")
+    public void downloadFile(HttpServletResponse response, @RequestParam("filename") String fileName) throws IOException {
+        File file = new File(fileName);
+
+        if (!file.exists()) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "File not found!");
+            return;
+        }
+
+        response.setContentType("application/octet-stream");
+        response.setContentLength((int) file.length());
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"");
+
+        try (InputStream inputStream = new FileInputStream(file);
+             OutputStream outputStream = response.getOutputStream()) {
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        }
+    }
 
 }
