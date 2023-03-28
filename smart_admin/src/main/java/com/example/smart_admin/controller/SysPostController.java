@@ -32,8 +32,7 @@ public class SysPostController {
     @PutMapping("/UpdateBySelective")
     public JsonModel<Integer> updateByPrimaryKeySelective(SysPost record){
         record.setUpdateTime(new Date());
-        long deptId = record.getDeptId();
-        record.setPostCode("P"+deptId+record.getPostId());
+        System.out.println(record.toString());
         int result=sysPostService.updateByPrimaryKeySelective(record);
         JsonModel<Integer> jsonModel = new JsonModel<>();
         jsonModel.setCode(200);
