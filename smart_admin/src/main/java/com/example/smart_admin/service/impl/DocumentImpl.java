@@ -49,5 +49,10 @@ public class DocumentImpl implements DocumentService {
         return documentMapper.updateByPrimaryKeySelective(record);
     }
 
+    @Override
+    public int selectMaxId() {
+        return documentMapper.selectMaxId();
+    }
+
 
 }

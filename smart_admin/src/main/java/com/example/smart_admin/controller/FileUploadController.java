@@ -28,12 +28,13 @@ public class FileUploadController {
     @Autowired
     DocumentService documentService;
 
-    @PostMapping("/UploadImage")
+    @PostMapping("/UploadFile")
     @ResponseBody
     //将上传的文件放在tomcat目录下面的file文件夹中
-    public String upload(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public Document upload(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
         //获取到原文件全名
         String originalFilename = multipartFile.getOriginalFilename();
+
         // request.getServletContext()。getRealPath("")这里不能使用这个，这个是获取servlet的对象，并获取到的一个临时文件的路径，所以这里不能使用这个
         //这里获取到我们项目的根目录，classpath下面
         String realPath = ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX).getPath();
@@ -53,14 +54,14 @@ public class FileUploadController {
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/" + format + "/" + originalFilename;
 
         Document document = new Document();
+        document.setId(documentService.selectMaxId()+1);
         document.setDocumentUrl("/" + format + "/" + originalFilename);
         document.setDocumentName(originalFilename);
         document.setCreateTime(new Date());
         document.setType(multipartFile.getContentType());
         System.out.println(document.toString());
-
         documentService.insertSelective(document);
-        return url;
+        return document;
 
     }
 

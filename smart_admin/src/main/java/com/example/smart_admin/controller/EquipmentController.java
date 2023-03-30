@@ -72,9 +72,9 @@ public class EquipmentController {
         //EquipmentCode由code 和id 组成
         int id = equipmentService.selectMaxId()+1;
         String code=record.getEquipmentType().split(",")[0];
+        record.setId(id);
         record.setEquipmentCode(code+id);
         record.setEquipmentType(record.getEquipmentType().split(",")[1]);
-
         int result = equipmentService.insertSelective(record);
         JsonModel<Integer> jsonModel = new JsonModel<>();
         jsonModel.setCode(200);

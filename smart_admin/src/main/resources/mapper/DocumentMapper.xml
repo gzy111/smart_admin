@@ -107,4 +107,10 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selectMaxId" resultType="integer">
+    select MAX(id) from document
+  </select>
+
 </mapper>

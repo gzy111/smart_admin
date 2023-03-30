@@ -20,4 +20,5 @@ public interface DocumentMapper {
 
     int updateByPrimaryKeySelective(Document record);
 
+    int selectMaxId();
 }

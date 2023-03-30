@@ -44,8 +44,9 @@ public class SysPostController {
     @PostMapping("/InsertSelective")
     public JsonModel<Integer>  insertSelective(@RequestBody  SysPost record){
         record.setCreateTime(new Date());
-        int id=sysPostService.selectMaxId()+1;
+        long id=sysPostService.selectMaxId()+1;
         long deptId = record.getDeptId();
+        record.setPostId(id);
         record.setPostCode("P"+deptId+id);
         int result = sysPostService.insertSelective(record);
         JsonModel<Integer> jsonModel = new JsonModel<>();

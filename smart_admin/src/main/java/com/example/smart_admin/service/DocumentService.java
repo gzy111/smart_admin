@@ -18,5 +18,5 @@ public interface DocumentService {
 
     int updateByPrimaryKeySelective(Document record);
 
-
+    int selectMaxId();
 }
