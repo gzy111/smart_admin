@@ -1,5 +1,6 @@
 package com.example.smart_admin.controller;
 
+import com.example.smart_admin.Utils.JsonModel;
 import com.example.smart_admin.domain.Document;
 import com.example.smart_admin.service.DocumentService;
 import com.github.pagehelper.PageInfo;
@@ -31,10 +32,10 @@ public class FileUploadController {
     @PostMapping("/UploadFile")
     @ResponseBody
     //将上传的文件放在tomcat目录下面的file文件夹中
-    public Document upload(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public JsonModel<Document> upload(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        JsonModel<Document> jsonModel = new JsonModel<>();
         //获取到原文件全名
         String originalFilename = multipartFile.getOriginalFilename();
-
         // request.getServletContext()。getRealPath("")这里不能使用这个，这个是获取servlet的对象，并获取到的一个临时文件的路径，所以这里不能使用这个
         //这里获取到我们项目的根目录，classpath下面
         String realPath = ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX).getPath();
@@ -47,21 +48,31 @@ public class FileUploadController {
         if (!file.exists()) {
             file.mkdirs();
         }
+        String filePath=realPath+"static/"+format+"/"+originalFilename;
+        if (new File(filePath).exists()){
+            jsonModel.setCode(403);
+            jsonModel.setMsg("文件已经存在");
+            return jsonModel;
+        }
         //转换成对应的文件存储，new File第一个参数是目录的路径，第二个参数是文件的完整名字
         multipartFile.transferTo(new File(file, originalFilename));
-
         //上传文件的全路径
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/" + format + "/" + originalFilename;
-
         Document document = new Document();
-        document.setId(documentService.selectMaxId()+1);
+        try {
+            //当数据库没有一条数据时，返回null，
+            document.setId(documentService.selectMaxId()+1);
+        }catch (Exception e){
+
+        }
         document.setDocumentUrl("/" + format + "/" + originalFilename);
         document.setDocumentName(originalFilename);
         document.setCreateTime(new Date());
         document.setType(multipartFile.getContentType());
         System.out.println(document.toString());
+        jsonModel.setData(document);
         documentService.insertSelective(document);
-        return document;
+        return jsonModel;
 
     }
 
@@ -130,13 +141,13 @@ public class FileUploadController {
      */
     @GetMapping("/delete")
     public Boolean uploadCustomPathFile(@RequestParam("file")String file,@RequestParam("id")int id) throws FileNotFoundException {
+        System.out.println(file+"id="+id);
         String path = ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX).getPath();
         String realPath = path.substring(1) + "static" + file;
         boolean re=FileSystemUtils.deleteRecursively(new File(realPath));
         if (re){
             documentService.deleteByPrimaryKey(id);
         }
-
         return re;
     }
 
