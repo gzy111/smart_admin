@@ -4,6 +4,7 @@ import com.example.smart_admin.Utils.JsonModel;
 import com.example.smart_admin.domain.Document;
 import com.example.smart_admin.service.DocumentService;
 import com.github.pagehelper.PageInfo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 
@@ -39,10 +40,12 @@ public class FileUploadController {
         // request.getServletContext()。getRealPath("")这里不能使用这个，这个是获取servlet的对象，并获取到的一个临时文件的路径，所以这里不能使用这个
         //这里获取到我们项目的根目录，classpath下面
         String realPath = ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX).getPath();
+        System.out.println(realPath+"realPath");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String format = simpleDateFormat.format(new Date());
         //文件夹路径,这里以时间作为目录
         String path = realPath + "static/" + format;
+        System.out.println(path+"Path");
         //判断文件夹是否存在，存在就不需要重新创建，不存在就创建
         File file = new File(path);
         if (!file.exists()) {

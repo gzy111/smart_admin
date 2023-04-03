@@ -1,11 +1,9 @@
 package com.example.smart_admin.domain;
 
-import com.example.smart_admin.base.base;
-
 import java.io.Serializable;
 import java.util.Date;
 
-public class Task extends base implements Serializable {
+public class Task implements Serializable {
     private String taskCode;
 
     private Date taskTime;
@@ -15,6 +13,8 @@ public class Task extends base implements Serializable {
     private String taskYield;
 
     private String state;
+
+    private String data;
 
     private static final long serialVersionUID = 1L;
 
@@ -58,6 +58,14 @@ public class Task extends base implements Serializable {
         this.state = state == null ? null : state.trim();
     }
 
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data == null ? null : data.trim();
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -74,7 +82,8 @@ public class Task extends base implements Serializable {
             && (this.getTaskTime() == null ? other.getTaskTime() == null : this.getTaskTime().equals(other.getTaskTime()))
             && (this.getTaskType() == null ? other.getTaskType() == null : this.getTaskType().equals(other.getTaskType()))
             && (this.getTaskYield() == null ? other.getTaskYield() == null : this.getTaskYield().equals(other.getTaskYield()))
-            && (this.getState() == null ? other.getState() == null : this.getState().equals(other.getState()));
+            && (this.getState() == null ? other.getState() == null : this.getState().equals(other.getState()))
+            && (this.getData() == null ? other.getData() == null : this.getData().equals(other.getData()));
     }
 
     @Override
@@ -86,6 +95,7 @@ public class Task extends base implements Serializable {
         result = prime * result + ((getTaskType() == null) ? 0 : getTaskType().hashCode());
         result = prime * result + ((getTaskYield() == null) ? 0 : getTaskYield().hashCode());
         result = prime * result + ((getState() == null) ? 0 : getState().hashCode());
+        result = prime * result + ((getData() == null) ? 0 : getData().hashCode());
         return result;
     }
 
@@ -100,6 +110,7 @@ public class Task extends base implements Serializable {
         sb.append(", taskType=").append(taskType);
         sb.append(", taskYield=").append(taskYield);
         sb.append(", state=").append(state);
+        sb.append(", data=").append(data);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

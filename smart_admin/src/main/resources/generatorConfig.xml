@@ -54,7 +54,7 @@
 <!--               selectByExampleQueryId="false">-->
 <!--        </table>-->
 
-        <table tableName="document" domainObjectName="Document"
+        <table tableName="storehouse" domainObjectName="Storehouse"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
