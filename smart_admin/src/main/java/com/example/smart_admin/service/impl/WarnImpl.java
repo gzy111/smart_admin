@@ -3,8 +3,13 @@ package com.example.smart_admin.service.impl;
 import com.example.smart_admin.domain.Warn;
 import com.example.smart_admin.mapper.WarnMapper;
 import com.example.smart_admin.service.WarnService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class WarnImpl implements WarnService {
@@ -27,10 +32,6 @@ public class WarnImpl implements WarnService {
         return warnMapper.insertSelective(record);
     }
 
-    @Override
-    public Warn selectByPrimaryKey(String warnCode) {
-        return warnMapper.selectByPrimaryKey(warnCode);
-    }
 
     @Override
     public int updateByPrimaryKeySelective(Warn record) {
@@ -45,5 +46,18 @@ public class WarnImpl implements WarnService {
     @Override
     public int updateByPrimaryKey(Warn record) {
         return warnMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public PageInfo<Warn> selectByPrimaryKey(Warn record) {
+        PageHelper.startPage(record.getPageNum(), record.getPageSize());
+        Page<Warn> list = (Page<Warn>) warnMapper.selectByPrimaryKey(record);
+        PageInfo<Warn> pageInfo = list.toPageInfo();
+        return pageInfo;
+    }
+
+    @Override
+    public List<Warn> selectByPrimaryKey() {
+        return warnMapper.selectByPrimaryKey();
     }
 }

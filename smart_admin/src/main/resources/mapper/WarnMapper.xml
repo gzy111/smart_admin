@@ -6,17 +6,18 @@
     <result column="equipment_code" property="equipmentCode" jdbcType="VARCHAR" />
     <result column="warn_type" property="warnType" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.example.smart_admin.domain.Warn" extends="BaseResultMap" >
     <result column="warn_data" property="warnData" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    warn_code, equipment_code, warn_type, create_time
+    warn_code, equipment_code, warn_type, create_time, state
   </sql>
   <sql id="Blob_Column_List" >
     warn_data
   </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="com.example.smart_admin.domain.Warn" >
     select 
     <include refid="Base_Column_List" />
     ,
@@ -24,7 +25,10 @@
     from warn
     <trim prefix="where" prefixOverrides="and |or">
       <if test="warnCode!=null">
-        and warn_code = #{warnCode,jdbcType=VARCHAR}
+        and warn_code  like  concat( '%',#{warnCode,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="state!=null">
+        and state = #{state,jdbcType=VARCHAR}
       </if>
     </trim>
   </select>
@@ -34,9 +38,11 @@
   </delete>
   <insert id="insert" parameterType="com.example.smart_admin.domain.Warn" >
     insert into warn (warn_code, equipment_code, warn_type, 
-      create_time, warn_data)
+      create_time, state, warn_data
+      )
     values (#{warnCode,jdbcType=VARCHAR}, #{equipmentCode,jdbcType=VARCHAR}, #{warnType,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{warnData,jdbcType=LONGVARCHAR})
+      #{createTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}, #{warnData,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.example.smart_admin.domain.Warn" >
     insert into warn
@@ -52,6 +58,9 @@
       </if>
       <if test="createTime != null" >
         create_time,
+      </if>
+      <if test="state != null" >
+        state,
       </if>
       <if test="warnData != null" >
         warn_data,
@@ -70,6 +79,9 @@
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
       <if test="warnData != null" >
         #{warnData,jdbcType=LONGVARCHAR},
       </if>
@@ -87,6 +99,9 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
       <if test="warnData != null" >
         warn_data = #{warnData,jdbcType=LONGVARCHAR},
       </if>
@@ -98,6 +113,7 @@
     set equipment_code = #{equipmentCode,jdbcType=VARCHAR},
       warn_type = #{warnType,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR},
       warn_data = #{warnData,jdbcType=LONGVARCHAR}
     where warn_code = #{warnCode,jdbcType=VARCHAR}
   </update>
@@ -105,7 +121,8 @@
     update warn
     set equipment_code = #{equipmentCode,jdbcType=VARCHAR},
       warn_type = #{warnType,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR}
     where warn_code = #{warnCode,jdbcType=VARCHAR}
   </update>
 </mapper>

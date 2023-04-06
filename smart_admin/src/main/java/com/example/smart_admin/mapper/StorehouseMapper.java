@@ -3,6 +3,8 @@ package com.example.smart_admin.mapper;
 import com.example.smart_admin.domain.Storehouse;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface StorehouseMapper {
     int deleteByPrimaryKey(Integer id);
@@ -11,9 +13,11 @@ public interface StorehouseMapper {
 
     int insertSelective(Storehouse record);
 
-    Storehouse selectByPrimaryKey(Integer id);
-
     int updateByPrimaryKeySelective(Storehouse record);
 
     int updateByPrimaryKey(Storehouse record);
+
+    List<Storehouse> selectByPrimaryKey(Storehouse record);
+
+    List<Storehouse> selectByPrimaryKey( );
 }

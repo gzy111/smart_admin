@@ -1,6 +1,9 @@
 package com.example.smart_admin.service;
 
 import com.example.smart_admin.domain.Warn;
+import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 public interface WarnService {
     int deleteByPrimaryKey(String warnCode);
@@ -9,11 +12,14 @@ public interface WarnService {
 
     int insertSelective(Warn record);
 
-    Warn selectByPrimaryKey(String warnCode);
-
     int updateByPrimaryKeySelective(Warn record);
 
     int updateByPrimaryKeyWithBLOBs(Warn record);
 
     int updateByPrimaryKey(Warn record);
+
+    PageInfo<Warn> selectByPrimaryKey(Warn record);
+
+    List<Warn> selectByPrimaryKey();
+
 }

@@ -16,6 +16,16 @@ public class Warn extends base implements Serializable {
 
     private String warnData;
 
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public String getWarnCode() {

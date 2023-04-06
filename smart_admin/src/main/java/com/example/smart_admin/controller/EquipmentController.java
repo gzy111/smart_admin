@@ -6,6 +6,7 @@ import com.example.smart_admin.domain.Equipment;
 import com.example.smart_admin.service.EquipmentService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Equipment")
+@Api(tags = "Equipment", value = "设备接口")
 public class EquipmentController {
 
     @Autowired

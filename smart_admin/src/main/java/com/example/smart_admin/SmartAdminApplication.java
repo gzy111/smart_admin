@@ -3,9 +3,11 @@ package com.example.smart_admin;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @MapperScan("com.example.smart_admin.mapper")
+@EnableSwagger2
 public class SmartAdminApplication {
 
     public static void main(String[] args) {

@@ -1,9 +1,11 @@
 package com.example.smart_admin.domain;
 
+import com.example.smart_admin.base.base;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class Storehouse implements Serializable {
+public class Storehouse extends base implements Serializable {
     private Integer id;
 
     private String code;

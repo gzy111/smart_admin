@@ -54,11 +54,6 @@
 <!--               selectByExampleQueryId="false">-->
 <!--        </table>-->
 
-        <table tableName="storehouse" domainObjectName="Storehouse"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
 
 <!--        <table tableName="plan" domainObjectName="Plan"-->
 <!--               enableCountByExample="false" enableUpdateByExample="false"-->
@@ -91,11 +86,11 @@
 <!--               selectByExampleQueryId="false">-->
 <!--        </table>-->
 
-<!--        <table tableName="task" domainObjectName="Task"-->
-<!--               enableCountByExample="false" enableUpdateByExample="false"-->
-<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
-<!--               selectByExampleQueryId="false">-->
-<!--        </table>-->
+        <table tableName="task" domainObjectName="Task"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
 
 <!--        <table tableName="warn" domainObjectName="Warn"-->
 <!--               enableCountByExample="false" enableUpdateByExample="false"-->
