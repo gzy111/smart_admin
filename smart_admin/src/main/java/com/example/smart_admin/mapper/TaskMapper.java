@@ -3,6 +3,7 @@ package com.example.smart_admin.mapper;
 import com.example.smart_admin.domain.Task;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 @Mapper
 public interface TaskMapper {
     int deleteByPrimaryKey(String taskCode);
@@ -11,11 +12,12 @@ public interface TaskMapper {
 
     int insertSelective(Task record);
 
-    Task selectByPrimaryKey(String taskCode);
+    List<Task> selectByPrimaryKey(Task record);
 
     int updateByPrimaryKeySelective(Task record);
 
-    int updateByPrimaryKeyWithBLOBs(Task record);
-
     int updateByPrimaryKey(Task record);
+
+    List<Task> selectByPrimaryKey();
+
 }
