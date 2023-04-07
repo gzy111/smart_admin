@@ -21,4 +21,5 @@ public interface MeasureService {
     int updateByPrimaryKey(Measure record);
 
     PageInfo<Measure> selectByPrimaryKey (Measure measure);
+
 }

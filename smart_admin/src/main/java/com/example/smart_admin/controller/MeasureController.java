@@ -21,8 +21,6 @@ public class MeasureController {
     @Autowired
     MeasureService measureService;
 
-
-
     @GetMapping("/selectAllpageInfo")
     public JsonModel<PageInfo<Measure>> selectAllpageInfo(Measure Measure){
         PageInfo<Measure> measures = measureService.selectByPrimaryKey(Measure);
@@ -90,12 +88,5 @@ public class MeasureController {
         return jsonModel;
     }
 
-    @PutMapping("/updateByPrimaryKey")
-    public JsonModel<Integer> updateByPrimaryKey(Measure record) {
-        JsonModel<Integer> jsonModel = new JsonModel<>();
-        jsonModel.setMsg("更新成功");
-        jsonModel.setCode(200);
-        jsonModel.setData(measureService.updateByPrimaryKey(record));
-        return jsonModel;
-    }
+
 }
