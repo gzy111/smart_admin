@@ -9,7 +9,6 @@ import com.example.smart_admin.service.SysDeptService;
 import com.example.smart_admin.service.SysPostService;
 import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
