@@ -2,10 +2,21 @@ package com.example.smart_admin.controller;
 
 
 import com.example.smart_admin.Utils.HttpUtils;
+import com.example.smart_admin.Utils.JWTUtil;
+import com.example.smart_admin.Utils.JsonUtil;
+import com.example.smart_admin.Utils.RSAUtil;
+import com.example.smart_admin.domain.SysUser;
+import com.example.smart_admin.service.sysUserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.PrivateKey;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -13,6 +24,12 @@ import java.util.Random;
 @RestController
 @RequestMapping("/login")
 public class LoginController {
+
+    @Autowired
+    sysUserService sysUserService;
+    @Value("${privateKeyPath}")
+    private String privateKeyPath;
+
     public static StringBuilder getRandom() {
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder();
@@ -24,7 +41,7 @@ public class LoginController {
         return stringBuilder;
     }
 
-    public int getSMCode(){
+    public String getSMCode(){
         String host = "https://gyytz.market.alicloudapi.com";
         String path = "/sms/smsSend";
         String method = "POST";
@@ -37,12 +54,9 @@ public class LoginController {
         String smcode= String.valueOf(getRandom());
         querys.put("param", "**code**:"+smcode+",**minute**:5");
 //smsSignId（短信前缀）和templateId（短信模板），可登录国阳云控制台自助申请。参考文档：http://help.guoyangyun.com/Problem/Qm.html
-
         querys.put("smsSignId", "2e65b1bb3d054466b82f0c9d125465e2");
         querys.put("templateId", "908e94ccf08b4476ba6c876d13f084ad");
         Map<String, String> bodys = new HashMap<String, String>();
-
-
         try {
             /**
              * 重要提示如下:
@@ -54,11 +68,45 @@ public class LoginController {
             HttpResponse response = HttpUtils.doPost(host, path, method, headers, querys, bodys);
             System.out.println(response.toString());
             //获取response的body
-            //System.out.println(EntityUtils.toString(response.getEntity()));
+            System.out.println(EntityUtils.toString(response.getEntity()));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 1;
+        return smcode;
+    }
+
+
+
+    @PostMapping("/login")
+    public Map<String,Object> login(long userId, String password){
+        System.out.println(userId);
+        System.out.println(password);
+        Map<String,Object> result = new HashMap<>();
+        SysUser userVO = sysUserService.login(userId,password);
+        if(userVO==null){
+            result.put("msg","登录失败");
+        }else{
+            PrivateKey privateKey=null;
+            try {
+                privateKey = RSAUtil.getPrivateKey(privateKeyPath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String userInfo = null;
+            try {
+                userInfo = JsonUtil.objToJson(userVO);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            //生成token
+            String token = JWTUtil.generateToken(userInfo,privateKey,36000);
+            result.put("code",200);
+            result.put("data",userVO);
+            result.put("msg","登录成功");
+            result.put("token",token);
+        }
+        //session
+        return result;
     }
 
 }

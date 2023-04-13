@@ -22,4 +22,6 @@ public interface sysUserService {
     List<SysUser>  selectByPrimaryKey();
 
     PageInfo<SysUser> selectByPrimaryKey(SysUser record);
+
+    SysUser login(long userId, String password);
 }

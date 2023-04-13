@@ -62,5 +62,10 @@ public class sysUserImpl implements sysUserService {
         return pageInfo;
     }
 
+    @Override
+    public SysUser login(long userId, String password) {
+        return sysUserMapper.login(userId,password);
+    }
+
 
 }

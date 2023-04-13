@@ -5,6 +5,7 @@ import com.example.smart_admin.Utils.JsonUtil;
 import com.example.smart_admin.Utils.RSAUtil;
 import com.github.pagehelper.util.StringUtil;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,8 @@ import java.util.Map;
 
 public class loginFilter implements HandlerInterceptor {
 
-    private String publicKeyPath="/Users/guanziyuan/Documents/实训三笔记/工作/jwt/rsa.pub";
+    @Value("${publicKeyPath}")
+    private String publicKeyPath;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -54,7 +56,6 @@ public class loginFilter implements HandlerInterceptor {
                 Map<String,Object> data = new HashMap<>();
                 data.put("code",401);
                 data.put("msg","没有登录");
-
                 printWriter.print(JsonUtil.mapToJson(data));
                 return false;
             }
