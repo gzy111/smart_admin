@@ -103,15 +103,16 @@
 
   <select id="login" resultMap="BaseResultMap">
     select * from sys_user
-    <trim prefix="where" prefixOverrides="and |or">
-      <if test="userId!=null">
-        user_id=#{userId,jdbcType=BIGINT}
-      </if>
-      <if test="phonenumber!=null">
-        or phonenumber=#{phonenumber}
-      </if>
-      and password=#{password}
-    </trim>
+             where
+                  user_id=#{userId,jdbcType=BIGINT}
+               and password=#{password}
+
+  </select>
+
+  <select id="selectUser" resultMap="BaseResultMap" parameterType="long">
+    select * from sys_user
+    where
+      user_id=#{userId,jdbcType=BIGINT}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="com.example.smart_admin.domain.SysUserKey" >

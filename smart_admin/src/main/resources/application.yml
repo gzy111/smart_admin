@@ -29,7 +29,7 @@ pagehelper:
   reasonable: false
   defaultCount: true # 分页插件默认参数支持 default-count 形式，自定义扩展的参数，必须大小写一致
 
-privateKeyPath: /Users/guanziyuan/Documents/biyesheji/smart_mine/jwt/rsa.pri
-publicKeyPath: /Users/guanziyuan/Documents/biyesheji/smart_mine/jwt/rsa.pub
+privateKeyPath: D:/smart_admin/jwt/rsa.pri
+publicKeyPath: D:/smart_admin/jwt/rsa.pub
 
 

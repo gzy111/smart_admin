@@ -23,5 +23,7 @@ public interface SysUserMapper {
     List<SysUser> selectByPrimaryKey();
     List<SysUser> selectByPrimaryKey(SysUser record);
 
-    SysUser login(long userId, String password);
+    SysUser login(Long userId, String password);
+
+    SysUser selectUser(Long userId);
 }

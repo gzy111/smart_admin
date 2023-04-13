@@ -63,8 +63,13 @@ public class sysUserImpl implements sysUserService {
     }
 
     @Override
-    public SysUser login(long userId, String password) {
+    public SysUser login(Long userId, String password) {
         return sysUserMapper.login(userId,password);
+    }
+
+    @Override
+    public SysUser selectUser(Long userId) {
+        return sysUserMapper.selectUser(userId);
     }
 
 

@@ -5,21 +5,19 @@ import com.example.smart_admin.Utils.HttpUtils;
 import com.example.smart_admin.Utils.JWTUtil;
 import com.example.smart_admin.Utils.JsonUtil;
 import com.example.smart_admin.Utils.RSAUtil;
+import com.example.smart_admin.domain.LoginRequest;
 import com.example.smart_admin.domain.SysUser;
 import com.example.smart_admin.service.sysUserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.PrivateKey;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @RestController
 @RequestMapping("/login")
@@ -30,6 +28,7 @@ public class LoginController {
     @Value("${privateKeyPath}")
     private String privateKeyPath;
 
+    private String SMCODE="";
     public static StringBuilder getRandom() {
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder();
@@ -41,7 +40,7 @@ public class LoginController {
         return stringBuilder;
     }
 
-    public String getSMCode(){
+    public String getSMCode(String phone){
         String host = "https://gyytz.market.alicloudapi.com";
         String path = "/sms/smsSend";
         String method = "POST";
@@ -50,7 +49,7 @@ public class LoginController {
         //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
         headers.put("Authorization", "APPCODE " + appcode);
         Map<String, String> querys = new HashMap<String, String>();
-        querys.put("mobile", "15078893612");
+        querys.put("mobile", phone);
         String smcode= String.valueOf(getRandom());
         querys.put("param", "**code**:"+smcode+",**minute**:5");
 //smsSignId（短信前缀）和templateId（短信模板），可登录国阳云控制台自助申请。参考文档：http://help.guoyangyun.com/Problem/Qm.html
@@ -78,13 +77,26 @@ public class LoginController {
 
 
     @PostMapping("/login")
-    public Map<String,Object> login(long userId, String password){
-        System.out.println(userId);
-        System.out.println(password);
+    public Map<String,Object> login(@RequestBody LoginRequest request){
+        SysUser userVO = new SysUser();
+        Long userId = request.getUserId();
+        String code=request.getPassCode();
+        if (request.getAdminFlg().equals("true")&&code.equals(SMCODE)){
+            userVO=sysUserService.selectUser(1001L);
+            System.out.println(code+"   code");
+            System.out.println(SMCODE+"   SMCODE");
+
+        }else {
+            System.out.println("没有验证码");
+            String password = request.getPassword();
+            System.out.println(userId);
+            System.out.println(password);
+            userVO = sysUserService.login(userId,password);
+        }
         Map<String,Object> result = new HashMap<>();
-        SysUser userVO = sysUserService.login(userId,password);
         if(userVO==null){
             result.put("msg","登录失败");
+            result.put("code","401");
         }else{
             PrivateKey privateKey=null;
             try {
@@ -109,4 +121,28 @@ public class LoginController {
         return result;
     }
 
+
+    @GetMapping("/getCode")
+    public void code(@RequestParam(value = "userId") Long userId){
+        if (userId==1001){
+            String phone= sysUserService.selectUser(userId).getPhonenumber();
+            SMCODE=getSMCode(phone);
+//            SMCODE="123456";
+            System.out.println(SMCODE);
+        }
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    SMCODE="";
+                    System.out.println("时间到");
+                    timer.cancel();
+                }catch (Exception e){
+                    System.out.println(e);
+                }
+            }
+        },5*60*1000);
+
+    }
 }

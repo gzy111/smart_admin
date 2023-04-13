@@ -19,7 +19,9 @@ public class myMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 //        WebMvcConfigurer.super.addInterceptors(registry);
         logger.info("注册拦截器");
-//        registry.addInterceptor(new loginFilter()).addPathPatterns("/**").excludePathPatterns("/users/*");
+        registry.addInterceptor(new loginFilter())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/login/*","/swagger-ui.html/**","/swagger-resources/**","doc.html#/*");
     }
 
     @Override

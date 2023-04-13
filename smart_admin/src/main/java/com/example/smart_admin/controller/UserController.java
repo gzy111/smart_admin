@@ -7,6 +7,7 @@ import com.example.smart_admin.domain.SysUserKey;
 import com.example.smart_admin.service.sysUserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class UserController {
     @Autowired
     sysUserService sysUserService;
 
-    @RequestMapping("/selectAll")
+    @GetMapping("/selectAll")
     public JsonModel<List<SysUser>> selectByPrimaryKey() {
         JsonModel<List<SysUser>> jsonModel = new JsonModel<>();
         List<SysUser> list = new ArrayList<>();
@@ -30,12 +31,12 @@ public class UserController {
     }
 
 
-    @RequestMapping("/selectPage")
-    public PageInfo<SysUser> select(SysUser sysUser){
+    @GetMapping("/selectPage")
+    public PageInfo<SysUser> select( SysUser sysUser){
         return sysUserService.selectByPrimaryKey(sysUser);
     }
 
-    @RequestMapping("/DeleteUser")
+    @GetMapping("/DeleteUser")
     public JsonModel<Integer> deleteUser(SysUserKey key){
         int result=sysUserService.deleteByPrimaryKey(key);
         JsonModel<Integer> jsonModel =new JsonModel<>();
