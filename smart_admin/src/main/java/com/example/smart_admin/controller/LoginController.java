@@ -111,7 +111,7 @@ public class LoginController {
                 e.printStackTrace();
             }
             //生成token
-            String token = JWTUtil.generateToken(userInfo,privateKey,36000);
+            String token = JWTUtil.generateToken(userInfo,privateKey,360000);
             result.put("code",200);
             result.put("data",userVO);
             result.put("msg","登录成功");

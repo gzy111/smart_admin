@@ -65,7 +65,7 @@ public class EquipmentController {
         return jsonModel;
     }
     @PostMapping("/equipmentInsertSelective")
-    public JsonModel<Integer>  insertSelective( Equipment record){
+    public JsonModel<Integer>  insertSelective( @RequestBody Equipment record){
         //todo
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

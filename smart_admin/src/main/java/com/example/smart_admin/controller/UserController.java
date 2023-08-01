@@ -66,6 +66,7 @@ public class UserController {
     public JsonModel<Integer> insertSelective(@RequestBody  SysUser record){
         record.setCreateTime(new Date());
         System.out.println(record.toString());
+        record.setId(1);
         int result=sysUserService.insertSelective(record);
         JsonModel<Integer> jsonModel =new JsonModel<>();
         jsonModel.setCode(200);

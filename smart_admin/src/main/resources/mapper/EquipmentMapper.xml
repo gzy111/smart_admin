@@ -19,7 +19,13 @@
     from equipment
     <trim prefix="where" prefixOverrides="and |or">
       <if test="equipmentCode!=null">
-        and equipment_code = #{equipmentCode,jdbcType=VARCHAR}
+        and equipment_code  like  concat( '%',#{equipmentCode},'%')
+      </if>
+      <if test="state!=null">
+        and state = #{state,jdbcType=VARCHAR}
+      </if>
+      <if test="equipmentName!=null">
+        and equipment_name like  concat( '%',#{equipmentName},'%')
       </if>
     </trim>
   </select>

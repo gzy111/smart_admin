@@ -6,10 +6,10 @@ import java.security.PublicKey;
 public class JWTTest {
 
     //公钥
-    private static final String pubKeyPath = "D:/smart_admin/jwt/rsa.pub";
+    private static final String pubKeyPath = "/Users/guanziyuan/Documents/biyesheji/smart_mine/jwt/rsa.pub";
 
     //私钥
-    private static final String priKeyPath = "D:/smart_admin/jwt/rsa.pri";
+    private static final String priKeyPath = "/Users/guanziyuan/Documents/biyesheji/smart_mine/jwt/rsa.pri";
 
     private PublicKey publicKey;
 

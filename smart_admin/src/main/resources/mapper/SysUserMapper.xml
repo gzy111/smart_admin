@@ -98,6 +98,13 @@
       <if test="postId!=null">
         and u.post_id = #{postId,jdbcType=INTEGER}
       </if>
+      <if test="userName!=null">
+        and u.user_name  like  concat( '%',#{userName},'%')
+      </if>
+      <if test="phonenumber!=null">
+        and u.phonenumber  like  concat( '%',#{phonenumber},'%')
+      </if>
+
     </trim>
   </select>
 

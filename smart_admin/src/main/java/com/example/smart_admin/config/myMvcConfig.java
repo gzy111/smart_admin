@@ -21,7 +21,8 @@ public class myMvcConfig implements WebMvcConfigurer {
         logger.info("注册拦截器");
         registry.addInterceptor(new loginFilter())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login/*","/swagger-ui.html/**","/swagger-resources/**","doc.html#/*");
+                .excludePathPatterns("/login/*","/swagger-ui.html/**","/swagger-resources/**","doc.html#/*","/File" +
+                        "/**","/img/**");
     }
 
     @Override
